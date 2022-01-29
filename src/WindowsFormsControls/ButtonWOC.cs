@@ -128,7 +128,8 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color OnHoverTextColor
         {
-            get => _onHoverTextColor; set
+            get => _onHoverTextColor;
+            set
             {
                 _onHoverTextColor = value;
                 Invalidate();
