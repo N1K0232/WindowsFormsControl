@@ -33,6 +33,15 @@ namespace WindowsFormsControls
 
             _isHovering = false;
 
+            FlatAppearance.BorderColor = Color.White;
+            FlatAppearance.BorderSize = 0;
+            FlatAppearance.MouseOverBackColor = Color.White;
+            FlatAppearance.MouseDownBackColor = Color.White;
+            FlatStyle = FlatStyle.Flat;
+
+            BackColor = Color.Transparent;
+            Font = new Font("Segoe UI", 12F);
+
             MouseEnter += new EventHandler(Mouse_Enter);
             MouseLeave += new EventHandler(Mouse_Leave);
         }
@@ -151,8 +160,12 @@ namespace WindowsFormsControls
             brush.Dispose();
             brush = new SolidBrush(_isHovering ? _onHoverTextColor : _textColor);
 
-            SizeF stringSize = graphics.MeasureString(Text, Font);
-            graphics.DrawString(Text, Font, brush, (Width - stringSize.Width) / 2, (Height - stringSize.Height) / 2);
+            string text = Text;
+            Font font = Font;
+            SizeF stringSize = graphics.MeasureString(text, font);
+            float textWidth = (Width - stringSize.Width) / 2;
+            float textHeight = (Height - stringSize.Height) / 2;
+            graphics.DrawString(text, font, brush, textWidth, textHeight);
         }
 
         /// <summary>
