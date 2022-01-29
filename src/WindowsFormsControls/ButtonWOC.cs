@@ -83,7 +83,8 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color TextColor
         {
-            get => _textColor; set
+            get => _textColor;
+            set
             {
                 _textColor = value;
                 Invalidate();
@@ -97,7 +98,8 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color OnHoverBorderColor
         {
-            get => _onHoverBorderColor; set
+            get => _onHoverBorderColor;
+            set
             {
                 _onHoverBorderColor = value;
                 Invalidate();
@@ -111,7 +113,8 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color OnHoverButtonColor
         {
-            get => _onHoverButtonColor; set
+            get => _onHoverButtonColor;
+            set
             {
                 _onHoverButtonColor = value;
                 Invalidate();
