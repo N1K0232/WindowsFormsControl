@@ -8,22 +8,15 @@ namespace WindowsFormsControls
 {
     public partial class CircularPictureBox : PictureBox
     {
-        private int _borderSize;
-        private float _gradientAngle;
-        private Color _firstBorderColor;
-        private Color _secondBorderColor;
-        private DashStyle _borderLineStyle;
-        private DashCap _borderCapStyle;
+        private int _borderSize = 2;
+        private float _gradientAngle = 50F;
+        private Color _firstBorderColor = Color.RoyalBlue;
+        private Color _secondBorderColor = Color.HotPink;
+        private DashStyle _borderLineStyle = DashStyle.Solid;
+        private DashCap _borderCapStyle = DashCap.Flat;
 
         public CircularPictureBox()
         {
-            _borderSize = 2;
-            _firstBorderColor = Color.RoyalBlue;
-            _secondBorderColor = Color.HotPink;
-            _borderLineStyle = DashStyle.Solid;
-            _borderCapStyle = DashCap.Flat;
-            _gradientAngle = 50F;
-
             Size = new Size(100, 100);
             SizeMode = PictureBoxSizeMode.StretchImage;
         }

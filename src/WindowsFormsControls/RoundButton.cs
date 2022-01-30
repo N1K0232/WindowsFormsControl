@@ -8,16 +8,12 @@ namespace WindowsFormsControls
 {
     public partial class RoundButton : Button
     {
-        private int _borderSize;
-        private int _borderRadius;
-        private Color _borderColor;
+        private int _borderSize = 0;
+        private int _borderRadius = 40;
+        private Color _borderColor = Color.PaleVioletRed;
 
         public RoundButton()
         {
-            _borderSize = 0;
-            _borderRadius = 40;
-            _borderColor = Color.PaleVioletRed;
-
             FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderSize = 0;
             Size = new Size(150, 40);

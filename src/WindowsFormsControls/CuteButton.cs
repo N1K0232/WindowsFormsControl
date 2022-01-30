@@ -8,30 +8,19 @@ namespace WindowsFormsControls
 {
     public partial class CuteButton : Button
     {
-        private Color _firstColor;
-        private Color _secondColor;
+        private Color _firstColor = Color.LightGreen;
+        private Color _secondColor = Color.DarkBlue;
 
-        private Color _onHoverFirstColor;
-        private Color _onHoverSecondColor;
+        private Color _onHoverFirstColor = Color.DarkGreen;
+        private Color _onHoverSecondColor = Color.LightBlue;
 
-        private int _firstColorTransparency;
-        private int _secondColorTransparency;
+        private int _firstColorTransparency = 80;
+        private int _secondColorTransparency = 80;
 
-        private bool _isHovering;
+        private bool _isHovering = false;
 
         public CuteButton()
         {
-            _firstColor = Color.LightGreen;
-            _secondColor = Color.DarkBlue;
-
-            _onHoverFirstColor = Color.DarkGreen;
-            _onHoverSecondColor = Color.LightBlue;
-
-            _firstColorTransparency = 80;
-            _secondColorTransparency = 80;
-
-            _isHovering = false;
-
             Size = new Size(120, 50);
             ForeColor = Color.Black;
             Font = new Font("Segoe UI", 12f);
