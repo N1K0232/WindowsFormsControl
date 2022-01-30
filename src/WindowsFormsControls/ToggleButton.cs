@@ -12,6 +12,8 @@ namespace WindowsFormsControls
         private Color _onToggleColor;
         private Color _offToggleColor;
 
+        private bool _solidStyle = true;
+
         public ToggleButton()
         {
             _onBackColor = Color.MediumSlateBlue;
@@ -26,7 +28,7 @@ namespace WindowsFormsControls
         /// gets or sets the background color when the button is on
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [Category("Button appearance")]
+        [Category("Control appearance")]
         public Color OnBackColor
         {
             get => _onBackColor;
@@ -41,7 +43,7 @@ namespace WindowsFormsControls
         /// gets or sets the background color when the button is off
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [Category("Button appearance")]
+        [Category("Control appearance")]
         public Color OffBackColor
         {
             get => _offBackColor;
@@ -56,7 +58,7 @@ namespace WindowsFormsControls
         /// gets or sets the toggle color when the button is on
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [Category("Button appearance")]
+        [Category("Control appearance")]
         public Color OnToggleColor
         {
             get => _onToggleColor;
@@ -71,13 +73,34 @@ namespace WindowsFormsControls
         /// gets or sets the toggle color when the button is off
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
-        [Category("Button appearance")]
+        [Category("Control appearance")]
         public Color OffToggleColor
         {
             get => _offToggleColor;
             set
             {
                 _offToggleColor = value;
+                Invalidate();
+            }
+        }
+
+        public override string Text
+        {
+            get => base.Text;
+            set
+            {
+            }
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Category("Control appearance")]
+        [DefaultValue(true)]
+        public bool SolidStyle
+        {
+            get => _solidStyle;
+            set
+            {
+                _solidStyle = value;
                 Invalidate();
             }
         }
@@ -106,8 +129,15 @@ namespace WindowsFormsControls
                 backColor = new SolidBrush(_onBackColor);
                 toggleColor = new SolidBrush(_onToggleColor);
                 rectangle = new Rectangle(width - height + 1, 2, toggleSize, toggleSize);
+                if (_solidStyle)
+                {
+                    graphics.FillPath(backColor, path);
+                }
+                else
+                {
+                    graphics.DrawPath(new Pen(_onBackColor), path);
+                }
 
-                graphics.FillPath(backColor, path);
                 graphics.FillEllipse(toggleColor, rectangle);
             }
             else
@@ -116,7 +146,15 @@ namespace WindowsFormsControls
                 toggleColor = new SolidBrush(_offToggleColor);
                 rectangle = new Rectangle(2, 2, toggleSize, toggleSize);
 
-                graphics.FillPath(backColor, path);
+                if (_solidStyle)
+                {
+                    graphics.FillPath(backColor, path);
+                }
+                else
+                {
+                    graphics.DrawPath(new Pen(_offBackColor), path);
+                }
+
                 graphics.FillEllipse(toggleColor, rectangle);
             }
         }
