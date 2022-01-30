@@ -11,28 +11,18 @@ namespace WindowsFormsControls
         private const int BorderThickness = 6;
         private const int BorderThicknessByTwo = 3;
 
-        private Color _borderColor;
-        private Color _buttonColor;
-        private Color _textColor;
+        private Color _borderColor = Color.Black;
+        private Color _buttonColor = Color.Blue;
+        private Color _textColor = Color.White;
 
-        private Color _onHoverBorderColor;
-        private Color _onHoverButtonColor;
-        private Color _onHoverTextColor;
+        private Color _onHoverBorderColor = Color.Red;
+        private Color _onHoverButtonColor = Color.Yellow;
+        private Color _onHoverTextColor = Color.Black;
 
-        private bool _isHovering;
+        private bool _isHovering = false;
 
         public ButtonWOC()
         {
-            _borderColor = Color.Black;
-            _buttonColor = Color.Blue;
-            _textColor = Color.White;
-
-            _onHoverBorderColor = Color.Red;
-            _onHoverButtonColor = Color.Yellow;
-            _onHoverTextColor = Color.Black;
-
-            _isHovering = false;
-
             FlatAppearance.BorderColor = Color.White;
             FlatAppearance.BorderSize = 0;
             FlatAppearance.MouseOverBackColor = Color.White;
@@ -144,22 +134,24 @@ namespace WindowsFormsControls
         {
             base.OnPaint(pe);
             Graphics graphics = pe.Graphics;
+            int width = Width;
+            int height = Height;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
             Brush brush = new SolidBrush(_isHovering ? _onHoverBorderColor : _borderColor);
-            graphics.FillEllipse(brush, 0, 0, Height, Height);
-            graphics.FillEllipse(brush, Width - Height, 0, Height, Height);
-            graphics.FillRectangle(brush, Height / 2, 0, Width - Height, Height);
+            graphics.FillEllipse(brush, 0, 0, height, height);
+            graphics.FillEllipse(brush, width - height, 0, height, height);
+            graphics.FillRectangle(brush, height / 2, 0, width - height, height);
 
             brush.Dispose();
             brush = new SolidBrush(_isHovering ? _onHoverButtonColor : _buttonColor);
 
-            graphics.FillEllipse(brush, BorderThicknessByTwo, BorderThicknessByTwo, Height - BorderThickness,
-                Height - BorderThickness);
-            graphics.FillEllipse(brush, (Width - Height) + BorderThicknessByTwo, BorderThicknessByTwo,
-                Height - BorderThickness, Height - BorderThickness);
-            graphics.FillRectangle(brush, Height / 2 + BorderThicknessByTwo, BorderThicknessByTwo,
-                Width - Height - BorderThickness, Height - BorderThickness);
+            graphics.FillEllipse(brush, BorderThicknessByTwo, BorderThicknessByTwo, height - BorderThickness,
+                height - BorderThickness);
+            graphics.FillEllipse(brush, (width - height) + BorderThicknessByTwo, BorderThicknessByTwo,
+                height - BorderThickness, height - BorderThickness);
+            graphics.FillRectangle(brush, height / 2 + BorderThicknessByTwo, BorderThicknessByTwo,
+                width - height - BorderThickness, height - BorderThickness);
 
             brush.Dispose();
             brush = new SolidBrush(_isHovering ? _onHoverTextColor : _textColor);
@@ -167,8 +159,8 @@ namespace WindowsFormsControls
             string text = Text;
             Font font = Font;
             SizeF stringSize = graphics.MeasureString(text, font);
-            float textWidth = (Width - stringSize.Width) / 2;
-            float textHeight = (Height - stringSize.Height) / 2;
+            float textWidth = (width - stringSize.Width) / 2;
+            float textHeight = (height - stringSize.Height) / 2;
             graphics.DrawString(text, font, brush, textWidth, textHeight);
         }
 
