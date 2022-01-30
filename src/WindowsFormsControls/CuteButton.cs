@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -10,9 +9,6 @@ namespace WindowsFormsControls
     {
         private Color _firstColor = Color.LightGreen;
         private Color _secondColor = Color.DarkBlue;
-
-        private Color _onHoverFirstColor = Color.DarkGreen;
-        private Color _onHoverSecondColor = Color.LightBlue;
 
         private int _firstColorTransparency = 80;
         private int _secondColorTransparency = 80;
@@ -27,9 +23,6 @@ namespace WindowsFormsControls
             FlatAppearance.BorderColor = Color.White;
             FlatAppearance.BorderSize = 0;
             FlatStyle = FlatStyle.Flat;
-
-            MouseEnter += new EventHandler(Mouse_Enter);
-            MouseLeave += new EventHandler(Mouse_Leave);
         }
 
         /// <summary>
@@ -58,36 +51,6 @@ namespace WindowsFormsControls
             set
             {
                 _secondColor = value;
-                Invalidate();
-            }
-        }
-
-        /// <summary>
-        /// gets or sets the first color of the button when the mouse hovers it
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [Category("Button appearance")]
-        public Color OnHoverFirstColor
-        {
-            get => _onHoverFirstColor;
-            set
-            {
-                _onHoverFirstColor = value;
-                Invalidate();
-            }
-        }
-
-        /// <summary>
-        /// gets or sets the second color of the button when the mouse hovers it
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Always)]
-        [Category("Button appearance")]
-        public Color OnHoverSecondColor
-        {
-            get => _onHoverSecondColor;
-            set
-            {
-                _onHoverSecondColor = value;
                 Invalidate();
             }
         }
@@ -130,38 +93,14 @@ namespace WindowsFormsControls
         {
             base.OnPaint(pe);
             Graphics graphics = pe.Graphics;
-            graphics.SmoothingMode = SmoothingMode.AntiAlias;
-
-            Color c1 = Color.FromArgb(_firstColorTransparency, _isHovering ? _onHoverFirstColor : _firstColor);
-            Color c2 = Color.FromArgb(_secondColorTransparency, _isHovering ? _onHoverSecondColor : _secondColor);
-
+            Color c1 = Color.FromArgb(_firstColorTransparency, _firstColor);
+            Color c2 = Color.FromArgb(_secondColorTransparency, _secondColor);
             Rectangle rectangle = ClientRectangle;
-            Brush brush = new LinearGradientBrush(rectangle, c1, c2, 10);
+            LinearGradientBrush brush = new(rectangle, c1, c2, 10);
 
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.FillRectangle(brush, rectangle);
             brush.Dispose();
-        }
-
-        /// <summary>
-        /// called when the mouse enters the control
-        /// </summary>
-        /// <param name="sender">the object that invoked the method</param>
-        /// <param name="e">the event informations</param>
-        private void Mouse_Enter(object sender, EventArgs e)
-        {
-            _isHovering = true;
-            Invalidate();
-        }
-
-        /// <summary>
-        /// called when the mouse leaves the control
-        /// </summary>
-        /// <param name="sender">the object that invoked the method</param>
-        /// <param name="e">the event informations</param>
-        private void Mouse_Leave(object sender, EventArgs e)
-        {
-            _isHovering = false;
-            Invalidate();
         }
     }
 }
