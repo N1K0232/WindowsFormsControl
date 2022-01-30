@@ -7,9 +7,6 @@ namespace WindowsFormsControls
 {
     public partial class WFTextBox
     {
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
         private IContainer components = null;
         private TextBox textBox;
 
@@ -26,19 +23,16 @@ namespace WindowsFormsControls
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
-
         /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
+        /// Initializes the control
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox = new TextBox();
-            this.SuspendLayout();
-            // 
-            // textBox1
-            // 
+            components = new Container();
+
+            textBox = new TextBox();
+            SuspendLayout();
+
             textBox.BorderStyle = BorderStyle.None;
             textBox.Dock = DockStyle.Fill;
             textBox.ForeColor = Color.Black;
@@ -53,21 +47,17 @@ namespace WindowsFormsControls
             textBox.Leave += new EventHandler(TextBox_Leave);
             textBox.MouseEnter += new EventHandler(TextBox_MouseEnter);
             textBox.MouseLeave += new EventHandler(TextBox_MouseLeave);
-            // 
-            // CustomTextBox
-            // 
-            this.AutoScaleMode = AutoScaleMode.None;
-            this.BackColor = SystemColors.Window;
-            this.Controls.Add(textBox);
-            this.Font = new Font("Segoe UI", 9.5F, FontStyle.Regular, GraphicsUnit.Point);
-            this.ForeColor = Color.DimGray;
-            this.Name = "WFTextBox";
-            this.Padding = new Padding(10, 7, 10, 7);
-            this.Size = new Size(250, 30);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-        }
 
-        #endregion
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = SystemColors.Window;
+            Controls.Add(textBox);
+            Font = new Font("Segoe UI", 9.5F, FontStyle.Regular, GraphicsUnit.Point);
+            ForeColor = Color.DimGray;
+            Name = "WFTextBox";
+            Padding = new Padding(10, 7, 10, 7);
+            Size = new Size(250, 30);
+            ResumeLayout(false);
+            PerformLayout();
+        }
     }
 }
