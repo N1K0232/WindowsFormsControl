@@ -7,14 +7,11 @@ namespace WindowsFormsControls
 {
     public partial class WFRadioButton : RadioButton
     {
-        private Color _checkedColor;
-        private Color _unCheckedColor;
+        private Color _checkedColor = Color.MediumSlateBlue;
+        private Color _unCheckedColor = Color.Gray;
 
         public WFRadioButton()
         {
-            _checkedColor = Color.MediumSlateBlue;
-            _unCheckedColor = Color.Gray;
-
             MinimumSize = new Size(0, 21);
             Font = new Font("Segoe UI", 12F);
         }

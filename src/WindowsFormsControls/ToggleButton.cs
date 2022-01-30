@@ -7,20 +7,15 @@ namespace WindowsFormsControls
 {
     public partial class ToggleButton : CheckBox
     {
-        private Color _onBackColor;
-        private Color _offBackColor;
-        private Color _onToggleColor;
-        private Color _offToggleColor;
+        private Color _onBackColor = Color.MediumSlateBlue;
+        private Color _offBackColor = Color.WhiteSmoke;
+        private Color _onToggleColor = Color.Gray;
+        private Color _offToggleColor = Color.Gainsboro;
 
         private bool _solidStyle = true;
 
         public ToggleButton()
         {
-            _onBackColor = Color.MediumSlateBlue;
-            _onToggleColor = Color.WhiteSmoke;
-            _offBackColor = Color.Gray;
-            _offToggleColor = Color.Gainsboro;
-
             MinimumSize = new Size(45, 22);
         }
 

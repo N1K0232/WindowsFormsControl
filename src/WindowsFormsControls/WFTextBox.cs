@@ -9,31 +9,24 @@ namespace WindowsFormsControls
     [DefaultEvent(nameof(TextChanged))]
     public partial class WFTextBox : UserControl
     {
-        private Color _borderColor;
-        private Color _borderFocusColor;
-        private int _borderSize;
-        private int _borderRadius;
-        private Color _placeHolderColor;
-        private string _placeHolderText;
-        private bool _isPlaceHolder;
-        private bool _isPasswordChar;
-        private bool _underlinedStyle;
-        private bool _isFocused;
+        private Color _borderColor = Color.MediumSlateBlue;
+        private Color _borderFocusColor = Color.HotPink;
+
+        private int _borderSize = 2;
+        private int _borderRadius = 0;
+
+        private bool _underlinedStyle = false;
+        private bool _isFocused = false;
+
+        private Color _placeHolderColor = Color.Gray;
+        private string _placeHolderText = string.Empty;
+
+        private bool _isPlaceHolder = false;
+        private bool _isPasswordChar = false;
 
         public WFTextBox()
         {
             InitializeComponent();
-
-            _borderColor = Color.MediumSlateBlue;
-            _borderFocusColor = Color.HotPink;
-            _borderSize = 2;
-            _underlinedStyle = false;
-            _isFocused = false;
-            _borderRadius = 0;
-            _placeHolderColor = Color.Gray;
-            _placeHolderText = string.Empty;
-            _isPlaceHolder = false;
-            _isPasswordChar = false;
         }
 
         /// <summary>

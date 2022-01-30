@@ -6,30 +6,23 @@ using System.Windows.Forms;
 
 namespace WindowsFormsControls
 {
+    [DefaultEvent(nameof(SelectedIndexChanged))]
     public partial class WFComboBox : UserControl
     {
-        private Color _backColor;
-        private Color _iconColor;
-        private Color _listBackColor;
-        private Color _listTextColor;
-        private Color _borderColor;
-        private int _borderSize;
+        private Color _backColor = Color.WhiteSmoke;
+        private Color _iconColor = Color.MediumSlateBlue;
+        private Color _listBackColor = Color.FromArgb(230, 228, 245);
+        private Color _listTextColor = Color.DimGray;
+        private Color _borderColor = Color.MediumSlateBlue;
+        private int _borderSize = 1;
 
         public WFComboBox()
         {
-            _backColor = Color.WhiteSmoke;
-            _iconColor = Color.MediumSlateBlue;
-            _listBackColor = Color.FromArgb(230, 228, 245);
-            _listTextColor = Color.DimGray;
-            _borderColor = Color.MediumSlateBlue;
-            _borderSize = 1;
-
             InitializeComponents();
         }
 
-        //appearance properties
         /// <summary>
-        /// 
+        /// gets or sets the back color of the control
         /// </summary>
         public new Color BackColor
         {
@@ -46,7 +39,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the color of the icon
         /// </summary>
         public Color IconColor
         {
@@ -62,7 +55,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets ors sets the color of the list
         /// </summary>
         public Color ListBackColor
         {
@@ -78,7 +71,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the color of the text of the list
         /// </summary>
         public Color ListTextColor
         {
@@ -94,7 +87,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the color of the border
         /// </summary>
         public Color BorderColor
         {
@@ -110,7 +103,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the size of the border
         /// </summary>
         public int BorderSize
         {
@@ -126,9 +119,6 @@ namespace WindowsFormsControls
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public override Color ForeColor
         {
             get
@@ -142,9 +132,6 @@ namespace WindowsFormsControls
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public override Font Font
         {
             get
@@ -159,9 +146,6 @@ namespace WindowsFormsControls
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public new string Text
         {
             get
@@ -174,9 +158,6 @@ namespace WindowsFormsControls
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public ComboBoxStyle DropDownStyle
         {
             get
@@ -192,9 +173,8 @@ namespace WindowsFormsControls
             }
         }
 
-        //data properties
         /// <summary>
-        /// 
+        /// gets the collection of the items of the combobox
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Localizable(true)]
@@ -209,7 +189,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the data source of the combo box
         /// </summary>
         [DefaultValue(null)]
         [RefreshProperties(RefreshProperties.Repaint)]
@@ -227,7 +207,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the AutoCompleteMode of the combobox
         /// </summary>
         [DefaultValue(AutoCompleteMode.None)]
         [Browsable(true)]
@@ -245,7 +225,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the AutoCompleteSource of the combobox
         /// </summary>
         [DefaultValue(AutoCompleteSource.None)]
         [Browsable(true)]
@@ -263,7 +243,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the AutoCompleteStringCollection of the combobox
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [Localizable(true)]
@@ -283,7 +263,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the index of the selected item of the combobox
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -300,7 +280,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// gets or sets the selected item of the combobox
         /// </summary>
         [Browsable(false)]
         [Bindable(true)]
@@ -321,12 +301,17 @@ namespace WindowsFormsControls
 
         private void AdjustComboBoxDimensions()
         {
+            Padding padding = Padding;
             cmbList.Width = lblText.Width;
-            cmbList.Location = new Point
+            int cmbWidth = cmbList.Width;
+            int cmbHeight = cmbList.Height;
+            Point cmbLocation = new()
             {
-                X = Width - this.Padding.Right - cmbList.Width,
-                Y = lblText.Bottom - cmbList.Height
+                X = Width - padding.Right - cmbWidth,
+                Y = lblText.Bottom - cmbHeight
             };
+
+            cmbList.Location = cmbLocation;
         }
     }
 }
