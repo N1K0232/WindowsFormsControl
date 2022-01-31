@@ -110,17 +110,6 @@ namespace WindowsFormsControls
             }
         }
 
-        public override string Text
-        {
-            get
-            {
-                return base.Text;
-            }
-            set
-            {
-            }
-        }
-
         /// <summary>
         /// redraws the control
         /// </summary>
@@ -172,6 +161,8 @@ namespace WindowsFormsControls
                     graphics.DrawPath(new Pen(_offBackColor), path);
                 }
             }
+
+            path.Dispose();
         }
 
         /// <summary>
