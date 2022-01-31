@@ -7,16 +7,16 @@ namespace WindowsFormsControls
 {
     public partial class ToggleButton : CheckBox
     {
-        private Color _onBackColor = Color.MediumSlateBlue;
-        private Color _offBackColor = Color.WhiteSmoke;
-        private Color _onToggleColor = Color.Gray;
+        private Color _onBackColor = Color.RoyalBlue;
+        private Color _offBackColor = Color.Gray;
+        private Color _onToggleColor = Color.WhiteSmoke;
         private Color _offToggleColor = Color.Gainsboro;
 
         private bool _solidStyle = true;
 
         public ToggleButton()
         {
-            MinimumSize = new Size(45, 22);
+            MinimumSize = new Size(90, 44);
         }
 
         /// <summary>
@@ -108,50 +108,71 @@ namespace WindowsFormsControls
         {
             int width = Width;
             int height = Height;
-            int toggleSize = height - 5;
             Control parent = Parent;
             Graphics graphics = pe.Graphics;
-            SolidBrush backColor;
-            SolidBrush toggleColor;
-            GraphicsPath path = GetFigurePath();
-            Rectangle rectangle;
+            bool isChecked = Checked;
 
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.Clear(parent.BackColor);
 
-            if (Checked)
+            DrawBackGround(graphics, isChecked);
+            DrawToggle(graphics, width, height, isChecked);
+        }
+
+        /// <summary>
+        /// draws the background
+        /// </summary>
+        /// <param name="graphics"></param>
+        private void DrawBackGround(Graphics graphics, bool isChecked)
+        {
+            GraphicsPath path = GetFigurePath();
+            Color backColor = isChecked ? _onBackColor : _offBackColor;
+            SolidBrush brush = new(backColor);
+            if (isChecked)
             {
-                backColor = new SolidBrush(_onBackColor);
-                toggleColor = new SolidBrush(_onToggleColor);
-                rectangle = new Rectangle(width - height + 1, 2, toggleSize, toggleSize);
                 if (_solidStyle)
                 {
-                    graphics.FillPath(backColor, path);
+                    graphics.FillPath(brush, path);
                 }
                 else
                 {
                     graphics.DrawPath(new Pen(_onBackColor), path);
                 }
-
-                graphics.FillEllipse(toggleColor, rectangle);
             }
             else
             {
-                backColor = new SolidBrush(_offBackColor);
-                toggleColor = new SolidBrush(_offToggleColor);
-                rectangle = new Rectangle(2, 2, toggleSize, toggleSize);
-
                 if (_solidStyle)
                 {
-                    graphics.FillPath(backColor, path);
+                    graphics.FillPath(brush, path);
                 }
                 else
                 {
                     graphics.DrawPath(new Pen(_offBackColor), path);
                 }
-
-                graphics.FillEllipse(toggleColor, rectangle);
             }
+        }
+
+        /// <summary>
+        /// draws the toggle of the button
+        /// </summary>
+        /// <param name="graphics"></param>
+        private void DrawToggle(Graphics graphics, int width, int height, bool isChecked)
+        {
+            Color toggleColor = isChecked ? _onToggleColor : _offToggleColor;
+            SolidBrush brush = new(toggleColor);
+            int toggleSize = height - 5;
+            Rectangle rectangle;
+
+            if (isChecked)
+            {
+                rectangle = new Rectangle(width - height + 1, 2, toggleSize, toggleSize);
+            }
+            else
+            {
+                rectangle = new Rectangle(2, 2, toggleSize, toggleSize);
+            }
+
+            graphics.FillEllipse(brush, rectangle);
         }
 
         /// <summary>
