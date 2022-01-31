@@ -13,8 +13,6 @@ namespace WindowsFormsControls
         private int _firstColorTransparency = 80;
         private int _secondColorTransparency = 80;
 
-        private bool _isHovering = false;
-
         public CuteButton()
         {
             Size = new Size(120, 50);

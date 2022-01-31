@@ -61,7 +61,7 @@ namespace WindowsFormsControls
         /// <summary>
         /// redraws the control
         /// </summary>
-        /// <param name="pe"></param>
+        /// <param name="pe">the event informations</param>
         protected override void OnPaint(PaintEventArgs pe)
         {
             Graphics graphics = pe.Graphics;
