@@ -20,7 +20,9 @@ namespace WindowsFormsControls
         {
         }
 
-
+        /// <summary>
+        /// gets or sets the value to indicate if the drop down is MainMenu
+        /// </summary>
         [Browsable(false)]
         public bool IsMainMenu
         {
@@ -34,7 +36,9 @@ namespace WindowsFormsControls
             }
         }
 
-
+        /// <summary>
+        /// gets or sets the item height of the control
+        /// </summary>
         [Browsable(false)]
         public int MenuItemHeight
         {
@@ -48,7 +52,9 @@ namespace WindowsFormsControls
             }
         }
 
-
+        /// <summary>
+        /// gets or sets the color of the text item
+        /// </summary>
         [Browsable(false)]
         public Color MenuItemTextColor
         {
@@ -62,7 +68,9 @@ namespace WindowsFormsControls
             }
         }
 
-
+        /// <summary>
+        /// gets or sets the primary color of the control
+        /// </summary>
         [Browsable(false)]
         public Color PrimaryColor
         {
@@ -76,6 +84,23 @@ namespace WindowsFormsControls
             }
         }
 
+        /// <summary>
+        /// called when the Handle is created
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            if (!DesignMode)
+            {
+                LoadMenuItemAppearance();
+                Renderer = new MenuRenderer(_isMainMenu, _primaryColor, _menuItemTextColor);
+            }
+        }
+
+        /// <summary>
+        /// loads the menu item appearance
+        /// </summary>
         private void LoadMenuItemAppearance()
         {
             if (_isMainMenu)
@@ -126,16 +151,6 @@ namespace WindowsFormsControls
                         }
                     }
                 }
-            }
-        }
-
-        protected override void OnHandleCreated(EventArgs e)
-        {
-            base.OnHandleCreated(e);
-            if (!DesignMode)
-            {
-                LoadMenuItemAppearance();
-                Renderer = new MenuRenderer(_isMainMenu, _primaryColor, _menuItemTextColor);
             }
         }
     }
