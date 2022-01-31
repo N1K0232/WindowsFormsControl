@@ -26,7 +26,10 @@ namespace WindowsFormsControls
         [Category("Control appearance")]
         public Color OnBackColor
         {
-            get => _onBackColor;
+            get
+            {
+                return _onBackColor;
+            }
             set
             {
                 _onBackColor = value;
@@ -41,7 +44,10 @@ namespace WindowsFormsControls
         [Category("Control appearance")]
         public Color OffBackColor
         {
-            get => _offBackColor;
+            get
+            {
+                return _offBackColor;
+            }
             set
             {
                 _offBackColor = value;
@@ -56,7 +62,10 @@ namespace WindowsFormsControls
         [Category("Control appearance")]
         public Color OnToggleColor
         {
-            get => _onToggleColor;
+            get
+            {
+                return _onToggleColor;
+            }
             set
             {
                 _onToggleColor = value;
@@ -71,7 +80,10 @@ namespace WindowsFormsControls
         [Category("Control appearance")]
         public Color OffToggleColor
         {
-            get => _offToggleColor;
+            get
+            {
+                return _offToggleColor;
+            }
             set
             {
                 _offToggleColor = value;
@@ -79,20 +91,18 @@ namespace WindowsFormsControls
             }
         }
 
-        public override string Text
-        {
-            get => base.Text;
-            set
-            {
-            }
-        }
-
+        /// <summary>
+        /// gets or sets the solid style of the control
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Always)]
         [Category("Control appearance")]
         [DefaultValue(true)]
         public bool SolidStyle
         {
-            get => _solidStyle;
+            get
+            {
+                return _solidStyle;
+            }
             set
             {
                 _solidStyle = value;
@@ -100,10 +110,21 @@ namespace WindowsFormsControls
             }
         }
 
+        public override string Text
+        {
+            get
+            {
+                return base.Text;
+            }
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// redraws the control
         /// </summary>
-        /// <param name="pe"></param>
+        /// <param name="pe">the informations of the event</param>
         protected override void OnPaint(PaintEventArgs pe)
         {
             int width = Width;
@@ -120,9 +141,10 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// draws the background
+        /// draws the background of the control
         /// </summary>
-        /// <param name="graphics"></param>
+        /// <param name="graphics">the graphics of the control</param>
+        /// <param name="isChecked">true if it's checked otherwise false</param>
         private void DrawBackGround(Graphics graphics, bool isChecked)
         {
             GraphicsPath path = GetFigurePath();
@@ -153,9 +175,12 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// draws the toggle of the button
+        /// draws the toggle of the control
         /// </summary>
-        /// <param name="graphics"></param>
+        /// <param name="graphics">the graphics of the control</param>
+        /// <param name="width">the width of the control</param>
+        /// <param name="height">the height of the control</param>
+        /// <param name="isChecked">true if it's checked otherwise false</param>
         private void DrawToggle(Graphics graphics, int width, int height, bool isChecked)
         {
             Color toggleColor = isChecked ? _onToggleColor : _offToggleColor;
@@ -181,9 +206,11 @@ namespace WindowsFormsControls
         /// <returns></returns>
         private GraphicsPath GetFigurePath()
         {
-            int arcSize = Height - 1;
+            int width = Width;
+            int height = Height;
+            int arcSize = height - 1;
             Rectangle leftArc = new(0, 0, arcSize, arcSize);
-            Rectangle rightArc = new(Width - arcSize - 2, 0, arcSize, arcSize);
+            Rectangle rightArc = new(width - arcSize - 2, 0, arcSize, arcSize);
 
             GraphicsPath path = new();
             path.StartFigure();
