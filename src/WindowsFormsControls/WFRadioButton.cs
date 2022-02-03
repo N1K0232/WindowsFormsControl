@@ -84,19 +84,16 @@ namespace WindowsFormsControls
             Graphics graphics = pe.Graphics;
             float borderSize = 18F;
             int height = Height;
+            float x = 0.5F;
+            float y = (height - borderSize) / 2;
+            RectangleF rectBorder = new(x, y, borderSize, borderSize);
             Color backColor = BackColor;
-            RectangleF rectBorder = new()
-            {
-                X = 0.5F,
-                Y = (height - borderSize) / 2,
-                Width = borderSize,
-                Height = borderSize
-            };
+            bool isChecked = Checked;
 
             graphics.Clear(backColor);
 
-            DrawBorder(graphics, rectBorder);
-            DrawCheck(graphics, rectBorder);
+            DrawBorder(graphics, rectBorder, isChecked);
+            DrawCheck(graphics, rectBorder, isChecked);
             DrawText(graphics, borderSize);
         }
 
@@ -105,21 +102,19 @@ namespace WindowsFormsControls
         /// </summary>
         /// <param name="graphics">the graphics of the control</param>
         /// <param name="rectBorder">the rectangle that represents the border</param>
-        private void DrawBorder(Graphics graphics, RectangleF rectBorder)
+        private void DrawBorder(Graphics graphics, RectangleF rectBorder, bool isChecked)
         {
-            Color checkedColor;
+            Color color = isChecked ? _checkedColor : _unCheckedColor;
             Pen penBorder;
 
-            if (Checked)
+            if (isChecked)
             {
-                checkedColor = _checkedColor;
-                penBorder = new Pen(checkedColor);
+                penBorder = new Pen(color);
                 graphics.DrawEllipse(penBorder, rectBorder);
             }
             else
             {
-                checkedColor = _unCheckedColor;
-                penBorder = new Pen(checkedColor);
+                penBorder = new Pen(color);
                 graphics.DrawEllipse(penBorder, rectBorder);
             }
         }
@@ -129,19 +124,16 @@ namespace WindowsFormsControls
         /// </summary>
         /// <param name="graphics">the graphics of the control</param>
         /// <param name="rectBorder">the rectangle of the border</param>
-        private void DrawCheck(Graphics graphics, RectangleF rectBorder)
+        private void DrawCheck(Graphics graphics, RectangleF rectBorder, bool isChecked)
         {
+            int height = Height;
             float checkSize = 12F;
             SolidBrush brushRbCheck = new(_checkedColor);
-            RectangleF rectCheck = new()
-            {
-                X = rectBorder.X + ((rectBorder.Width - checkSize) / 2),
-                Y = (Height - checkSize) / 2,
-                Width = checkSize,
-                Height = checkSize
-            };
+            float x = rectBorder.X + ((rectBorder.Width - checkSize) / 2);
+            float y = (height - checkSize) / 2;
+            RectangleF rectCheck = new(x, y, checkSize, checkSize);
 
-            if (Checked)
+            if (isChecked)
             {
                 graphics.FillEllipse(brushRbCheck, rectCheck);
             }
