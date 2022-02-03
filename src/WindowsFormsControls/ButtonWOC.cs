@@ -270,15 +270,17 @@ namespace WindowsFormsControls
         {
             int width = Width;
             int height = Height;
+            int borderThickness = BorderThickness;
+            int borderThicknessByTwo = BorderThicknessByTwo;
             Color buttonColor = _isHovering ? _onHoverButtonColor : _buttonColor;
             SolidBrush brush = new(buttonColor);
 
-            graphics.FillEllipse(brush, BorderThicknessByTwo, BorderThicknessByTwo, height - BorderThickness,
-                height - BorderThickness);
-            graphics.FillEllipse(brush, (width - height) + BorderThicknessByTwo, BorderThicknessByTwo,
-                height - BorderThickness, height - BorderThickness);
-            graphics.FillRectangle(brush, height / 2 + BorderThicknessByTwo, BorderThicknessByTwo,
-                width - height - BorderThickness, height - BorderThickness);
+            graphics.FillEllipse(brush, borderThicknessByTwo, borderThicknessByTwo, height - borderThickness,
+                height - borderThickness);
+            graphics.FillEllipse(brush, (width - height) + borderThicknessByTwo, borderThicknessByTwo,
+                height - borderThickness, height - borderThickness);
+            graphics.FillRectangle(brush, height / 2 + borderThicknessByTwo, borderThicknessByTwo,
+                width - height - borderThickness, height - borderThickness);
 
             brush.Dispose();
         }
