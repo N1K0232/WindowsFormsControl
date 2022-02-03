@@ -6,10 +6,13 @@ using System.Windows.Forms;
 
 namespace WindowsFormsControls
 {
-    public partial class ButtonWOC : Button
+    /// <summary>
+    /// represents a rounded windows button
+    /// </summary>
+    public partial class ButtonWOC : Button, IButtonControl
     {
-        private const int BorderThickness = 6;
-        private const int BorderThicknessByTwo = 3;
+        private const int DefaultBorderThickness = 6;
+        private const int DefaultBorderThicknessByTwo = 3;
 
         private Color _borderColor = Color.Black;
         private Color _buttonColor = Color.RoyalBlue;
@@ -19,8 +22,14 @@ namespace WindowsFormsControls
         private Color _onHoverButtonColor = Color.Yellow;
         private Color _onHoverTextColor = Color.Black;
 
+        private int _borderThickness = 0;
+        private int _borderThicknessByTwo = 0;
         private bool _isHovering = false;
 
+        /// <summary>
+        /// creates a new instance of the <see cref="ButtonWOC"/>
+        /// class
+        /// </summary>
         public ButtonWOC()
         {
             FlatAppearance.BorderColor = Color.White;
@@ -31,6 +40,7 @@ namespace WindowsFormsControls
 
             MinimumSize = new Size(150, 50);
             BackColor = Color.Transparent;
+            ForeColor = Color.Transparent;
             Font = new Font("Segoe UI", 12F);
 
             MouseEnter += new EventHandler(Mouse_Enter);
@@ -44,9 +54,17 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color BorderColor
         {
-            get => _borderColor;
+            get
+            {
+                return _borderColor;
+            }
             set
             {
+                if (value == BorderColor)
+                {
+                    return;
+                }
+
                 _borderColor = value;
                 Invalidate();
             }
@@ -59,9 +77,17 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color ButtonColor
         {
-            get => _buttonColor;
+            get
+            {
+                return _buttonColor;
+            }
             set
             {
+                if (value == ButtonColor)
+                {
+                    return;
+                }
+
                 _buttonColor = value;
                 Invalidate();
             }
@@ -74,9 +100,17 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color TextColor
         {
-            get => _textColor;
+            get
+            {
+                return _textColor;
+            }
             set
             {
+                if (value == TextColor)
+                {
+                    return;
+                }
+
                 _textColor = value;
                 Invalidate();
             }
@@ -89,9 +123,17 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color OnHoverBorderColor
         {
-            get => _onHoverBorderColor;
+            get
+            {
+                return _onHoverBorderColor;
+            }
             set
             {
+                if (value == OnHoverBorderColor)
+                {
+                    return;
+                }
+
                 _onHoverBorderColor = value;
                 Invalidate();
             }
@@ -104,9 +146,17 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color OnHoverButtonColor
         {
-            get => _onHoverButtonColor;
+            get
+            {
+                return _onHoverButtonColor;
+            }
             set
             {
+                if (value == OnHoverButtonColor)
+                {
+                    return;
+                }
+
                 _onHoverButtonColor = value;
                 Invalidate();
             }
@@ -119,10 +169,64 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color OnHoverTextColor
         {
-            get => _onHoverTextColor;
+            get
+            {
+                return _onHoverTextColor;
+            }
             set
             {
+                if (value == OnHoverTextColor)
+                {
+                    return;
+                }
+
                 _onHoverTextColor = value;
+                Invalidate();
+            }
+        }
+
+        /// <summary>
+        /// gets or sets the thickness of the border of the button
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Category("Button appearance")]
+        public int BorderThickness
+        {
+            get
+            {
+                return _borderThickness == 0 ? DefaultBorderThickness : _borderThickness;
+            }
+            set
+            {
+                if (value == BorderThickness)
+                {
+                    return;
+                }
+
+                _borderThickness = value;
+                Invalidate();
+            }
+        }
+
+        /// <summary>
+        /// gets or sets the border thickness divided by two
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [Category("Button appearance")]
+        public int BorderThicknessByTwo
+        {
+            get
+            {
+                return _borderThicknessByTwo == 0 ? DefaultBorderThicknessByTwo : _borderThicknessByTwo;
+            }
+            set
+            {
+                if (value == BorderThicknessByTwo || value != BorderThickness / 2)
+                {
+                    return;
+                }
+
+                _borderThicknessByTwo = value;
                 Invalidate();
             }
         }
