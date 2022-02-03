@@ -91,12 +91,20 @@ namespace WindowsFormsControls
         {
             base.OnPaint(pe);
             Graphics graphics = pe.Graphics;
+            graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            DrawControl(graphics);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="graphics"></param>
+        private void DrawControl(Graphics graphics)
+        {
             Color c1 = Color.FromArgb(_firstColorTransparency, _firstColor);
             Color c2 = Color.FromArgb(_secondColorTransparency, _secondColor);
             Rectangle rectangle = ClientRectangle;
             LinearGradientBrush brush = new(rectangle, c1, c2, 10);
-
-            graphics.SmoothingMode = SmoothingMode.AntiAlias;
             graphics.FillRectangle(brush, rectangle);
             brush.Dispose();
         }

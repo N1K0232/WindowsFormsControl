@@ -234,26 +234,35 @@ namespace WindowsFormsControls
         /// <summary>
         /// redraws the control
         /// </summary>
-        /// <param name="pe"></param>
+        /// <param name="pe">the event informations</param>
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
+            DrawControl(pe);
+        }
+
+        /// <summary>
+        /// this methos is called by the <see cref="OnPaint(PaintEventArgs)"/>
+        /// method and draws the control
+        /// </summary>
+        /// <param name="pe">the event informations</param>
+        private void DrawControl(PaintEventArgs pe)
+        {
+            int width = Width;
+            int height = Height;
             Graphics graphics = pe.Graphics;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
-
-            DrawBorder(graphics);
-            FillControl(graphics);
-            DrawText(graphics);
+            DrawBorder(graphics, width, height);
+            FillButton(graphics, width, height);
+            DrawText(graphics, width, height);
         }
 
         /// <summary>
         /// draws the border of the control
         /// </summary>
         /// <param name="graphics">the graphics of the control</param>
-        private void DrawBorder(Graphics graphics)
+        private void DrawBorder(Graphics graphics, int width, int height)
         {
-            int width = Width;
-            int height = Height;
             Color borderColor = _isHovering ? _onHoverBorderColor : _borderColor;
             SolidBrush brush = new(borderColor);
             graphics.FillEllipse(brush, 0, 0, height, height);
@@ -266,10 +275,8 @@ namespace WindowsFormsControls
         /// fills the control
         /// </summary>
         /// <param name="graphics">the graphics of the control</param>
-        private void FillControl(Graphics graphics)
+        private void FillButton(Graphics graphics, int width, int height)
         {
-            int width = Width;
-            int height = Height;
             int borderThickness = BorderThickness;
             int borderThicknessByTwo = BorderThicknessByTwo;
             Color buttonColor = _isHovering ? _onHoverButtonColor : _buttonColor;
@@ -289,10 +296,8 @@ namespace WindowsFormsControls
         /// draws the text
         /// </summary>
         /// <param name="graphics">the graphics of the control</param>
-        private void DrawText(Graphics graphics)
+        private void DrawText(Graphics graphics, int width, int height)
         {
-            int width = Width;
-            int height = Height;
             string text = Text;
             Font font = Font;
             SizeF stringSize = graphics.MeasureString(text, font);
