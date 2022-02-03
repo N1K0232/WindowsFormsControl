@@ -263,7 +263,7 @@ namespace WindowsFormsControls
         /// <param name="graphics">the graphics of the control</param>
         private void DrawBorder(Graphics graphics, int width, int height)
         {
-            Color borderColor = _isHovering ? _onHoverBorderColor : _borderColor;
+            Color borderColor = GetBorderColor();
             SolidBrush brush = new(borderColor);
             graphics.FillEllipse(brush, 0, 0, height, height);
             graphics.FillEllipse(brush, width - height, 0, height, height);
@@ -279,7 +279,7 @@ namespace WindowsFormsControls
         {
             int borderThickness = BorderThickness;
             int borderThicknessByTwo = BorderThicknessByTwo;
-            Color buttonColor = _isHovering ? _onHoverButtonColor : _buttonColor;
+            Color buttonColor = GetButtonColor();
             SolidBrush brush = new(buttonColor);
 
             graphics.FillEllipse(brush, borderThicknessByTwo, borderThicknessByTwo, height - borderThickness,
@@ -303,10 +303,37 @@ namespace WindowsFormsControls
             SizeF stringSize = graphics.MeasureString(text, font);
             float textWidth = (width - stringSize.Width) / 2;
             float textHeight = (height - stringSize.Height) / 2;
-            Color textColor = _isHovering ? _onHoverTextColor : _textColor;
+            Color textColor = GetTextColor();
             SolidBrush brush = new(textColor);
             graphics.DrawString(text, font, brush, textWidth, textHeight);
             brush.Dispose();
+        }
+
+        /// <summary>
+        /// gets the border color of the button when the mouse hovers the button
+        /// </summary>
+        /// <returns></returns>
+        private Color GetBorderColor()
+        {
+            return _isHovering ? _onHoverBorderColor : _borderColor;
+        }
+
+        /// <summary>
+        /// gets the button color when the mouse hovers the button
+        /// </summary>
+        /// <returns></returns>
+        private Color GetButtonColor()
+        {
+            return _isHovering ? _onHoverButtonColor : _buttonColor;
+        }
+
+        /// <summary>
+        /// gets the text color of the button when the mouse hovers the button
+        /// </summary>
+        /// <returns></returns>
+        private Color GetTextColor()
+        {
+            return _isHovering ? _onHoverTextColor : _textColor;
         }
 
         /// <summary>
