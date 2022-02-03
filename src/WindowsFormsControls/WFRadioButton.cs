@@ -5,11 +5,18 @@ using System.Windows.Forms;
 
 namespace WindowsFormsControls
 {
+    /// <summary>
+    /// represents a windows radiobutton
+    /// </summary>
     public partial class WFRadioButton : RadioButton
     {
         private Color _checkedColor = Color.MediumSlateBlue;
         private Color _unCheckedColor = Color.Gray;
 
+        /// <summary>
+        /// creates a new instance of the <see cref="WFRadioButton"/>
+        /// class
+        /// </summary>
         public WFRadioButton()
         {
             MinimumSize = new Size(0, 21);
@@ -63,6 +70,16 @@ namespace WindowsFormsControls
         /// </summary>
         /// <param name="pe">the event informations</param>
         protected override void OnPaint(PaintEventArgs pe)
+        {
+            DrawControl(pe);
+        }
+
+        /// <summary>
+        /// draws the control. this method is called by the <see cref="OnPaint(PaintEventArgs)"/>
+        /// method
+        /// </summary>
+        /// <param name="pe">the event informations</param>
+        private void DrawControl(PaintEventArgs pe)
         {
             Graphics graphics = pe.Graphics;
             float borderSize = 18F;
