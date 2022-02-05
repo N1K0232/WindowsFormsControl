@@ -14,7 +14,8 @@ namespace WindowsFormsControls
         private int _blue;
 
         /// <summary>
-        /// 
+        /// creates a new instance of the <see cref="ColorPicker"/>
+        /// class
         /// </summary>
         public ColorPicker()
         {
