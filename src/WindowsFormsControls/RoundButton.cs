@@ -35,9 +35,17 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public int BorderSize
         {
-            get => _borderSize;
+            get
+            {
+                return _borderSize;
+            }
             set
             {
+                if (value == BorderSize)
+                {
+                    return;
+                }
+
                 _borderSize = value;
                 Invalidate();
             }
@@ -50,9 +58,17 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public int BorderRadius
         {
-            get => _borderRadius;
+            get
+            {
+                return _borderRadius;
+            }
             set
             {
+                if (value == BorderRadius)
+                {
+                    return;
+                }
+
                 _borderRadius = value;
                 Invalidate();
             }
@@ -65,9 +81,17 @@ namespace WindowsFormsControls
         [Category("Button appearance")]
         public Color BorderColor
         {
-            get => _borderColor;
+            get
+            {
+                return _borderColor;
+            }
             set
             {
+                if (value == BorderColor)
+                {
+                    return;
+                }
+
                 _borderColor = value;
                 Invalidate();
             }
