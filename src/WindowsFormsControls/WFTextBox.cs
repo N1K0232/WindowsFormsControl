@@ -283,14 +283,45 @@ namespace WindowsFormsControls
         public new event EventHandler TextChanged;
 
         /// <summary>
+        /// loads the control
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            UpdateControlHeight();
+        }
+
+        /// <summary>
+        /// called when the control is resized
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            if (DesignMode)
+            {
+                UpdateControlHeight();
+            }
+        }
+
+        /// <summary>
         /// redraws the control
         /// </summary>
         /// <param name="e"></param>
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs pe)
         {
-            base.OnPaint(e);
+            base.OnPaint(pe);
+            DrawControl(pe);
+        }
 
-            Graphics g = e.Graphics;
+        /// <summary>
+        /// draws the control
+        /// </summary>
+        /// <param name="pe">the event informations</param>
+        private void DrawControl(PaintEventArgs pe)
+        {
+            Graphics g = pe.Graphics;
             Control parent = Parent;
             Rectangle clientRectangle = ClientRectangle;
             int width = Width;
@@ -299,15 +330,15 @@ namespace WindowsFormsControls
             if (_borderRadius > 1)
             {
                 Rectangle rectBorderSmooth = clientRectangle;
-                Rectangle rectBorder = Rectangle.Inflate(rectBorderSmooth, -_borderSize, -_borderSize);
-                int smoothSize = _borderSize > 0 ? _borderSize : 1;
+                Rectangle rectBorder = GetBorderRectangle(rectBorderSmooth);
+                int smoothSize = GetSmoothSize();
 
-                using var pathBorderSmooth = GetFigurePath(rectBorderSmooth, _borderRadius);
-                using var pathBorder = GetFigurePath(rectBorder, _borderRadius - _borderSize);
-                using var penBorderSmooth = new Pen(parent.BackColor, smoothSize);
-                using var penBorder = new Pen(_borderColor, _borderSize);
+                GraphicsPath pathBorderSmooth = GetFigurePath(rectBorderSmooth, _borderRadius);
+                GraphicsPath pathBorder = GetFigurePath(rectBorder, _borderRadius - _borderSize);
+                Pen penBorderSmooth = new(parent.BackColor, smoothSize);
+                Pen penBorder = new(_borderColor, _borderSize);
 
-                this.Region = new Region(pathBorderSmooth);
+                Region = new Region(pathBorderSmooth);
                 if (_borderRadius > 15)
                 {
                     SetTextBoxRoundedRegion();
@@ -334,7 +365,7 @@ namespace WindowsFormsControls
             }
             else
             {
-                using var penBorder = new Pen(_borderColor, _borderSize);
+                Pen penBorder = new(_borderColor, _borderSize);
                 Region = new Region(clientRectangle);
                 penBorder.Alignment = PenAlignment.Inset;
 
@@ -355,26 +386,23 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// loads the control
+        /// gets the border of rectangle from the smooth rectangle
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnLoad(EventArgs e)
+        /// <param name="smoothRectangle">the smooth rectangle</param>
+        /// <returns>the border of the rectangle</returns>
+        private Rectangle GetBorderRectangle(Rectangle smoothRectangle)
         {
-            base.OnLoad(e);
-            UpdateControlHeight();
+            int size = -_borderSize;
+            return Rectangle.Inflate(smoothRectangle, size, size);
         }
 
         /// <summary>
-        /// called when the control is resized
+        /// gets the size of the smooth
         /// </summary>
-        /// <param name="e"></param>
-        protected override void OnResize(EventArgs e)
+        /// <returns>the size of the smooth</returns>
+        private int GetSmoothSize()
         {
-            base.OnResize(e);
-            if (DesignMode)
-            {
-                UpdateControlHeight();
-            }
+            return _borderSize > 0 ? _borderSize : 1;
         }
 
         /// <summary>
@@ -534,7 +562,7 @@ namespace WindowsFormsControls
         /// <param name="rect"></param>
         /// <param name="radius"></param>
         /// <returns></returns>
-        private static GraphicsPath GetFigurePath(Rectangle rect, int radius)
+        private GraphicsPath GetFigurePath(Rectangle rect, int radius)
         {
             GraphicsPath path = new();
             float curveSize = radius * 2F;
