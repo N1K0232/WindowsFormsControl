@@ -41,6 +41,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == BorderSize)
+                {
+                    return;
+                }
+
                 _borderSize = value;
                 Invalidate();
             }
@@ -59,6 +64,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == GradientAngle)
+                {
+                    return;
+                }
+
                 _gradientAngle = value;
                 Invalidate();
             }
@@ -77,6 +87,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == FirstBorderColor)
+                {
+                    return;
+                }
+
                 _firstBorderColor = value;
                 Invalidate();
             }
@@ -95,6 +110,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == SecondBorderColor)
+                {
+                    return;
+                }
+
                 _secondBorderColor = value;
                 Invalidate();
             }
@@ -113,6 +133,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == BorderLineStyle)
+                {
+                    return;
+                }
+
                 _borderLineStyle = value;
                 Invalidate();
             }
@@ -131,6 +156,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == BorderCapStyle)
+                {
+                    return;
+                }
+
                 _borderCapStyle = value;
                 Invalidate();
             }
@@ -238,7 +268,8 @@ namespace WindowsFormsControls
         /// <returns>the rectangle of the border</returns>
         private Rectangle GetBorderRectangle(Rectangle smoothRectangle)
         {
-            return Rectangle.Inflate(smoothRectangle, -_borderSize, -_borderSize);
+            int size = -_borderSize;
+            return Rectangle.Inflate(smoothRectangle, size, size);
         }
     }
 }
