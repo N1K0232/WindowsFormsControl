@@ -5,7 +5,10 @@ using System.Windows.Forms;
 
 namespace WindowsFormsControls
 {
-    public partial class CuteButton : Button
+    /// <summary>
+    /// represents a windows button
+    /// </summary>
+    public partial class CuteButton : Button, IButtonControl
     {
         private Color _firstColor = Color.LightGreen;
         private Color _secondColor = Color.DarkBlue;
@@ -13,6 +16,10 @@ namespace WindowsFormsControls
         private int _firstColorTransparency = 80;
         private int _secondColorTransparency = 80;
 
+        /// <summary>
+        /// creates a new instance of the <see cref="CuteButton"/>
+        /// class
+        /// </summary>
         public CuteButton()
         {
             Size = new Size(120, 50);

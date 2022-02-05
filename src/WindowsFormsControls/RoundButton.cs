@@ -9,7 +9,7 @@ namespace WindowsFormsControls
     /// <summary>
     /// represents a windows button with rounded borders
     /// </summary>
-    public partial class RoundButton : Button
+    public partial class RoundButton : Button, IButtonControl
     {
         private int _borderSize = 0;
         private int _borderRadius = 40;
