@@ -35,7 +35,10 @@ namespace WindowsFormsControls
         [EditorBrowsable(EditorBrowsableState.Always)]
         public int BorderSize
         {
-            get => _borderSize;
+            get
+            {
+                return _borderSize;
+            }
             set
             {
                 _borderSize = value;
@@ -50,7 +53,10 @@ namespace WindowsFormsControls
         [EditorBrowsable(EditorBrowsableState.Always)]
         public float GradientAngle
         {
-            get => _gradientAngle;
+            get
+            {
+                return _gradientAngle;
+            }
             set
             {
                 _gradientAngle = value;
@@ -65,7 +71,10 @@ namespace WindowsFormsControls
         [EditorBrowsable(EditorBrowsableState.Always)]
         public Color FirstBorderColor
         {
-            get => _firstBorderColor;
+            get
+            {
+                return _firstBorderColor;
+            }
             set
             {
                 _firstBorderColor = value;
@@ -80,7 +89,10 @@ namespace WindowsFormsControls
         [EditorBrowsable(EditorBrowsableState.Always)]
         public Color SecondBorderColor
         {
-            get => _secondBorderColor;
+            get
+            {
+                return _secondBorderColor;
+            }
             set
             {
                 _secondBorderColor = value;
@@ -95,7 +107,10 @@ namespace WindowsFormsControls
         [EditorBrowsable(EditorBrowsableState.Always)]
         public DashStyle BorderLineStyle
         {
-            get => _borderLineStyle;
+            get
+            {
+                return _borderLineStyle;
+            }
             set
             {
                 _borderLineStyle = value;
@@ -110,7 +125,10 @@ namespace WindowsFormsControls
         [EditorBrowsable(EditorBrowsableState.Always)]
         public DashCap BorderCapStyle
         {
-            get => _borderCapStyle;
+            get
+            {
+                return _borderCapStyle;
+            }
             set
             {
                 _borderCapStyle = value;
