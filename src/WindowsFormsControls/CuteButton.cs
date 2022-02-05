@@ -103,7 +103,7 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// 
+        /// draws the control 
         /// </summary>
         /// <param name="graphics"></param>
         private void DrawControl(Graphics graphics)
