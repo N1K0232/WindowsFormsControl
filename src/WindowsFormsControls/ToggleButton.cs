@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace WindowsFormsControls
 {
+    /// <summary>
+    /// represents a windows toggle
+    /// </summary>
     public partial class ToggleButton : CheckBox
     {
         private Color _onBackColor = Color.RoyalBlue;
@@ -14,6 +17,10 @@ namespace WindowsFormsControls
 
         private bool _solidStyle = true;
 
+        /// <summary>
+        /// creates a new instance of the <see cref="ToggleButton"/>
+        /// class
+        /// </summary>
         public ToggleButton()
         {
             MinimumSize = new Size(90, 44);
@@ -32,6 +39,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == OnBackColor)
+                {
+                    return;
+                }
+
                 _onBackColor = value;
                 Invalidate();
             }
@@ -50,6 +62,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == OffBackColor)
+                {
+                    return;
+                }
+
                 _offBackColor = value;
                 Invalidate();
             }
@@ -68,6 +85,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == OnToggleColor)
+                {
+                    return;
+                }
+
                 _onToggleColor = value;
                 Invalidate();
             }
@@ -86,6 +108,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == OffToggleColor)
+                {
+                    return;
+                }
+
                 _offToggleColor = value;
                 Invalidate();
             }
@@ -105,6 +132,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == SolidStyle)
+                {
+                    return;
+                }
+
                 _solidStyle = value;
                 Invalidate();
             }
@@ -115,6 +147,15 @@ namespace WindowsFormsControls
         /// </summary>
         /// <param name="pe">the informations of the event</param>
         protected override void OnPaint(PaintEventArgs pe)
+        {
+            DrawControl(pe);
+        }
+
+        /// <summary>
+        /// draws the control
+        /// </summary>
+        /// <param name="pe">the informations of the event</param>
+        private void DrawControl(PaintEventArgs pe)
         {
             int width = Width;
             int height = Height;
@@ -194,7 +235,7 @@ namespace WindowsFormsControls
         /// <summary>
         /// gets the path of the control
         /// </summary>
-        /// <returns></returns>
+        /// <returns>the path of the control</returns>
         private GraphicsPath GetFigurePath()
         {
             int width = Width;
