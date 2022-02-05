@@ -28,11 +28,11 @@ namespace WindowsFormsControls
         /// </summary>
         private void InitializeComponent()
         {
-            components = new Container();
-
             textBox = new TextBox();
             SuspendLayout();
-
+            // 
+            // textBox
+            // 
             textBox.BorderStyle = BorderStyle.None;
             textBox.Dock = DockStyle.Fill;
             textBox.ForeColor = Color.Black;
@@ -47,7 +47,9 @@ namespace WindowsFormsControls
             textBox.Leave += new EventHandler(TextBox_Leave);
             textBox.MouseEnter += new EventHandler(TextBox_MouseEnter);
             textBox.MouseLeave += new EventHandler(TextBox_MouseLeave);
-
+            // 
+            // WFTextBox
+            // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = SystemColors.Window;
             Controls.Add(textBox);
