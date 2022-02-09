@@ -1,11 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace WindowsFormsControls
 {
+    /// <summary>
+    /// represents a custom windows date time picker
+    /// </summary>
     public partial class WFDateTimePicker : DateTimePicker
     {
         private const int CalendarIconWidth = 34;
@@ -20,6 +22,10 @@ namespace WindowsFormsControls
         private Image _calendarIcon = Properties.Resources.calendarWhite;
         private RectangleF _iconButtonArea;
 
+        /// <summary>
+        /// creates a new instance of the <see cref="WFDateTimePicker"/>
+        /// class
+        /// </summary>
         public WFDateTimePicker()
         {
             SetStyle(ControlStyles.UserPaint, true);
@@ -27,54 +33,98 @@ namespace WindowsFormsControls
             Font = new Font("Segoe UI", 12F);
         }
 
+        /// <summary>
+        /// gets or sets the skin color of the control
+        /// </summary>
         [Category("Control appearance")]
-        [Browsable(false)]
+        [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         public Color SkinColor
         {
-            get => _skinColor;
+            get
+            {
+                return _skinColor;
+            }
             set
             {
+                if (value == SkinColor)
+                {
+                    return;
+                }
+
                 _skinColor = value;
                 SetCalendarIcon();
                 Invalidate();
             }
         }
 
+        /// <summary>
+        /// gets or sets the text color
+        /// </summary>
         [Category("Control appearance")]
-        [Browsable(false)]
+        [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         public Color TextColor
         {
-            get => _textColor;
+            get
+            {
+                return _textColor;
+            }
             set
             {
+                if (value == TextColor)
+                {
+                    return;
+                }
+
                 _textColor = value;
                 Invalidate();
             }
         }
 
+        /// <summary>
+        /// gets or sets the border color
+        /// </summary>
         [Category("Control appearance")]
-        [Browsable(false)]
+        [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         public Color BorderColor
         {
-            get => _borderColor;
+            get
+            {
+                return _borderColor;
+            }
             set
             {
+                if (value == BorderColor)
+                {
+                    return;
+                }
+
                 _borderColor = value;
                 Invalidate();
             }
         }
 
+        /// <summary>
+        /// gets or sets the border size
+        /// </summary>
         [Category("Control appearance")]
-        [Browsable(false)]
+        [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         public int BorderSize
         {
-            get => _borderSize;
+            get
+            {
+                return _borderSize;
+            }
             set
             {
+                if (value == BorderSize)
+                {
+                    return;
+                }
+
                 _borderSize = value;
                 Invalidate();
             }
@@ -85,48 +135,100 @@ namespace WindowsFormsControls
             base.OnDropDown(eventargs);
             _droppedDown = true;
         }
+
         protected override void OnCloseUp(EventArgs eventargs)
         {
             base.OnCloseUp(eventargs);
             _droppedDown = false;
         }
+
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
             base.OnKeyPress(e);
             e.Handled = true;
         }
+
         protected override void OnPaint(PaintEventArgs e)
         {
-            Font font = Font;
-            string text = "   " + Text;
+            DrawControl();
+        }
+
+        /// <summary>
+        /// draws the control
+        /// </summary>
+        private void DrawControl()
+        {
+            Graphics graphics = CreateGraphics();
             float width = Width - 0.5F;
             float height = Height - 0.5F;
-
-            Graphics graphics = CreateGraphics();
-            using var penBorder = new Pen(_borderColor, _borderSize);
-            using var skinBrush = new SolidBrush(_skinColor);
-            using var openIconBrush = new SolidBrush(Color.FromArgb(50, 64, 64, 64));
-            using var textBrush = new SolidBrush(_textColor);
-            using var textFormat = new StringFormat();
-
             RectangleF clientArea = new(0, 0, width, height);
-            RectangleF iconArea = new(clientArea.Width - CalendarIconWidth, 0, CalendarIconWidth, clientArea.Height);
-            penBorder.Alignment = PenAlignment.Inset;
-            textFormat.LineAlignment = StringAlignment.Center;
 
-            graphics.FillRectangle(skinBrush, clientArea);
-            graphics.DrawString(text, font, textBrush, clientArea, textFormat);
-            if (_droppedDown)
-            {
-                graphics.FillRectangle(openIconBrush, iconArea);
-            }
+            DrawBorder(graphics, clientArea);
+            DrawRectangle(graphics, clientArea);
+            DrawImage(graphics);
+            DrawText(graphics, clientArea);
+        }
+
+        /// <summary>
+        /// draws the border of the control
+        /// </summary>
+        /// <param name="graphics">the graphics of the control</param>
+        /// <param name="clientArea">the client area of the control</param>
+        private void DrawBorder(Graphics graphics, RectangleF clientArea)
+        {
+            Pen penBorder = new(_borderColor, _borderSize);
+
             if (_borderSize >= 1)
             {
                 graphics.DrawRectangle(penBorder, clientArea.X, clientArea.Y, clientArea.Width, clientArea.Height);
             }
-
-            graphics.DrawImage(_calendarIcon, Width - _calendarIcon.Width - 9, (Height - _calendarIcon.Height) / 2);
         }
+
+        /// <summary>
+        /// draws and fills the rectangle of the control
+        /// </summary>
+        /// <param name="graphics">the graphics of the control</param>
+        /// <param name="clientArea">the client area of the control</param>
+        private void DrawRectangle(Graphics graphics, RectangleF clientArea)
+        {
+            RectangleF iconArea = new(clientArea.Width - CalendarIconWidth, 0, CalendarIconWidth, clientArea.Height);
+            Color iconColor = Color.FromArgb(50, 64, 64, 64);
+            SolidBrush openIconBrush = new(iconColor);
+            SolidBrush skinBrush = new(_skinColor);
+            graphics.FillRectangle(skinBrush, clientArea);
+
+            if (_droppedDown)
+            {
+                graphics.FillRectangle(openIconBrush, iconArea);
+            }
+        }
+
+        /// <summary>
+        /// draws the calendar image
+        /// </summary>
+        /// <param name="graphics">the graphics of the control</param>
+        private void DrawImage(Graphics graphics)
+        {
+            int x = Width - _calendarIcon.Width - 9;
+            int y = (Height - _calendarIcon.Height) / 2;
+            graphics.DrawImage(_calendarIcon, x, y);
+        }
+
+        /// <summary>
+        /// draws the text of the control
+        /// </summary>
+        /// <param name="graphics">the graphics of the control</param>
+        /// <param name="clientArea">the client area of the control</param>
+        private void DrawText(Graphics graphics, RectangleF clientArea)
+        {
+            Font font = Font;
+            string text = "   " + Text;
+            SolidBrush textBrush = new(_textColor);
+            StringFormat textFormat = new();
+            textFormat.Alignment = StringAlignment.Center;
+            graphics.DrawString(text, font, textBrush, clientArea, textFormat);
+        }
+
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
@@ -135,6 +237,7 @@ namespace WindowsFormsControls
             int height = Height;
             _iconButtonArea = new RectangleF(width, 0, iconWidth, height);
         }
+
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -148,6 +251,10 @@ namespace WindowsFormsControls
             }
         }
 
+        /// <summary>
+        /// when the skin color of the control changes, this method is invoked
+        /// and changes the calendar icon giving the brightness of the color
+        /// </summary>
         private void SetCalendarIcon()
         {
             float brightness = _skinColor.GetBrightness();
@@ -160,6 +267,11 @@ namespace WindowsFormsControls
                 _calendarIcon = Properties.Resources.calendarWhite;
             }
         }
+
+        /// <summary>
+        /// gets the width of the icon button
+        /// </summary>
+        /// <returns>the width of the icon button</returns>
         private int GetIconButtonWidth()
         {
             string text = Text;
