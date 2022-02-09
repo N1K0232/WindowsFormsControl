@@ -13,7 +13,7 @@ namespace WindowsFormsControls
         private const int CalendarIconWidth = 34;
         private const int ArrowIconWidth = 17;
 
-        private Color _skinColor = Color.MediumSlateBlue;
+        private Color _skinColor = Color.RoyalBlue;
         private Color _textColor = Color.White;
         private Color _borderColor = Color.PaleVioletRed;
         private int _borderSize = 0;
@@ -158,6 +158,8 @@ namespace WindowsFormsControls
         /// </summary>
         private void DrawControl()
         {
+            // note: the method CreateGraphics() returns the same
+            // Graphics object of the PaintEventArgs class
             Graphics graphics = CreateGraphics();
             float width = Width - 0.5F;
             float height = Height - 0.5F;
@@ -177,10 +179,14 @@ namespace WindowsFormsControls
         private void DrawBorder(Graphics graphics, RectangleF clientArea)
         {
             Pen penBorder = new(_borderColor, _borderSize);
+            float x = clientArea.X;
+            float y = clientArea.Y;
+            float width = clientArea.Width;
+            float height = clientArea.Height;
 
             if (_borderSize >= 1)
             {
-                graphics.DrawRectangle(penBorder, clientArea.X, clientArea.Y, clientArea.Width, clientArea.Height);
+                graphics.DrawRectangle(penBorder, x, y, width, height);
             }
         }
 
