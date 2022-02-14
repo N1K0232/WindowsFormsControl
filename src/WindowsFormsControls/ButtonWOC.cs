@@ -11,19 +11,32 @@ namespace WindowsFormsControls
     /// </summary>
     public partial class ButtonWOC : Button, IButtonControl
     {
+        //constants
         private const int DefaultBorderThickness = 6;
         private const int DefaultBorderThicknessByTwo = 3;
 
-        private Color _borderColor = Color.Black;
-        private Color _buttonColor = Color.RoyalBlue;
-        private Color _textColor = Color.White;
+        //static color fields
+        private static readonly Color s_borderColor = Color.Black;
+        private static readonly Color s_buttonColor = Color.RoyalBlue;
+        private static readonly Color s_textColor = Color.White;
+        private static readonly Color s_onHoverBorderColor = Color.Red;
+        private static readonly Color s_onHoverButtonColor = Color.Yellow;
+        private static readonly Color s_onHoverTextColor = Color.Black;
 
-        private Color _onHoverBorderColor = Color.Red;
-        private Color _onHoverButtonColor = Color.Yellow;
-        private Color _onHoverTextColor = Color.Black;
+        //colors
+        private Color _borderColor = Color.Empty;
+        private Color _buttonColor = Color.Empty;
+        private Color _textColor = Color.Empty;
+        private Color _onHoverBorderColor = Color.Empty;
+        private Color _onHoverButtonColor = Color.Empty;
+        private Color _onHoverTextColor = Color.Empty;
 
+        //these fields are used to draw the border
         private int _borderThickness = 0;
         private int _borderThicknessByTwo = 0;
+
+        //this field is used to redraw the control when the mouse enters
+        //or leaves the button area
         private bool _isHovering = false;
 
         /// <summary>
@@ -56,7 +69,8 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _borderColor;
+                Color c = _borderColor;
+                return c.IsEmpty ? s_borderColor : _borderColor;
             }
             set
             {
@@ -79,7 +93,8 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _buttonColor;
+                Color c = _buttonColor;
+                return c.IsEmpty ? s_buttonColor : _buttonColor;
             }
             set
             {
@@ -102,7 +117,8 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _textColor;
+                Color c = _textColor;
+                return c.IsEmpty ? s_textColor : _textColor;
             }
             set
             {
@@ -125,7 +141,8 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _onHoverBorderColor;
+                Color c = _onHoverBorderColor;
+                return c.IsEmpty ? s_onHoverBorderColor : _onHoverBorderColor;
             }
             set
             {
@@ -148,7 +165,8 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _onHoverButtonColor;
+                Color c = _onHoverButtonColor;
+                return c.IsEmpty ? s_onHoverButtonColor : _onHoverButtonColor;
             }
             set
             {
@@ -171,7 +189,8 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _onHoverTextColor;
+                Color c = _onHoverTextColor;
+                return c.IsEmpty ? s_onHoverTextColor : _onHoverTextColor;
             }
             set
             {
@@ -194,7 +213,10 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _borderThickness == 0 ? DefaultBorderThickness : _borderThickness;
+                int thickness = _borderThickness;
+                return thickness == 0 ?
+                    DefaultBorderThickness :
+                    _borderThickness;
             }
             set
             {
@@ -217,7 +239,10 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _borderThicknessByTwo == 0 ? DefaultBorderThicknessByTwo : _borderThicknessByTwo;
+                int thickness = _borderThicknessByTwo;
+                return thickness == 0 ?
+                    DefaultBorderThicknessByTwo :
+                    _borderThicknessByTwo;
             }
             set
             {
@@ -272,6 +297,15 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
+        /// gets the border color of the button when the mouse hovers the button
+        /// </summary>
+        /// <returns></returns>
+        private Color GetBorderColor()
+        {
+            return _isHovering ? OnHoverBorderColor : BorderColor;
+        }
+
+        /// <summary>
         /// fills the control
         /// </summary>
         /// <param name="graphics">the graphics of the control</param>
@@ -293,6 +327,15 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
+        /// gets the button color when the mouse hovers the button
+        /// </summary>
+        /// <returns></returns>
+        private Color GetButtonColor()
+        {
+            return _isHovering ? OnHoverButtonColor : ButtonColor;
+        }
+
+        /// <summary>
         /// draws the text
         /// </summary>
         /// <param name="graphics">the graphics of the control</param>
@@ -310,30 +353,12 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
-        /// gets the border color of the button when the mouse hovers the button
-        /// </summary>
-        /// <returns></returns>
-        private Color GetBorderColor()
-        {
-            return _isHovering ? _onHoverBorderColor : _borderColor;
-        }
-
-        /// <summary>
-        /// gets the button color when the mouse hovers the button
-        /// </summary>
-        /// <returns></returns>
-        private Color GetButtonColor()
-        {
-            return _isHovering ? _onHoverButtonColor : _buttonColor;
-        }
-
-        /// <summary>
         /// gets the text color of the button when the mouse hovers the button
         /// </summary>
         /// <returns></returns>
         private Color GetTextColor()
         {
-            return _isHovering ? _onHoverTextColor : _textColor;
+            return _isHovering ? OnHoverTextColor : TextColor;
         }
 
         /// <summary>
