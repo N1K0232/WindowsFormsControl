@@ -69,6 +69,8 @@ namespace WindowsFormsControls
         {
             get
             {
+                //gets the _borderColor field value because the
+                //mouse doesn't hover the control
                 return GetBorderColor(false);
             }
             set
@@ -92,6 +94,8 @@ namespace WindowsFormsControls
         {
             get
             {
+                //gets the _buttonColor value 
+                //because the mouse doesn't hover the control
                 return GetButtonColor(false);
             }
             set
@@ -115,6 +119,8 @@ namespace WindowsFormsControls
         {
             get
             {
+                //gets the _textColor value 
+                //because the mouse doesn't hover the control
                 return GetTextColor(false);
             }
             set
@@ -138,7 +144,8 @@ namespace WindowsFormsControls
         {
             get
             {
-
+                //gets the _onHoverButtonColor value 
+                //because the mouse hovers the control
                 return GetBorderColor(true);
             }
             set
@@ -162,6 +169,8 @@ namespace WindowsFormsControls
         {
             get
             {
+                //gets the _onHoverButtonColor value 
+                //because the mouse hovers the control
                 return GetButtonColor(true);
             }
             set
@@ -185,6 +194,8 @@ namespace WindowsFormsControls
         {
             get
             {
+                //gets the _onHoverTuttonColor value 
+                //because the mouse hovers the control
                 return GetTextColor(true);
             }
             set

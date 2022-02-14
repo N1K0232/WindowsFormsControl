@@ -6,6 +6,9 @@ using WindowsFormsControls.Helpers;
 
 namespace WindowsFormsControls
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class DropDownMenu : ContextMenuStrip
     {
         private bool _isMainMenu;
@@ -15,6 +18,10 @@ namespace WindowsFormsControls
 
         private Bitmap _menuItemHeaderSize;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="container"></param>
         public DropDownMenu(IContainer container)
             : base(container)
         {
