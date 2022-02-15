@@ -406,18 +406,18 @@ namespace WindowsFormsControls
 
             if (isHovering)
             {
-                c = _onHoverButtonColor;
+                c = _onHoverTextColor;
                 if (c.IsEmpty)
                 {
-                    c = s_onHoverButtonColor;
+                    c = s_onHoverTextColor;
                 }
             }
             else
             {
-                c = _buttonColor;
+                c = _textColor;
                 if (c.IsEmpty)
                 {
-                    c = s_buttonColor;
+                    c = s_textColor;
                 }
             }
 
