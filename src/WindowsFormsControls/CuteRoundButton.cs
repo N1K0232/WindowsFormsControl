@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace WindowsFormsControls
 {
+    /// <summary>
+    /// represents a cute windows button with rounded corners
+    /// </summary>
     public partial class CuteRoundButton : RoundButton
     {
         private static readonly Color s_firstColor = Color.LightGreen;
@@ -15,6 +18,10 @@ namespace WindowsFormsControls
         private int _firstColorTransparency = 80;
         private int _secondColorTransparency = 80;
 
+        /// <summary>
+        /// creates a new instance of the <see cref="CuteRoundButton"/>
+        /// class
+        /// </summary>
         public CuteRoundButton() : base()
         {
             BorderColor = Color.White;
