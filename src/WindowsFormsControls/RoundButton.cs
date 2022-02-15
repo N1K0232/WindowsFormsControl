@@ -11,9 +11,11 @@ namespace WindowsFormsControls
     /// </summary>
     public partial class RoundButton : Button, IButtonControl
     {
+        private static readonly Color s_borderColor = Color.PaleVioletRed;
+
         private int _borderSize = 0;
         private int _borderRadius = 40;
-        private Color _borderColor = Color.PaleVioletRed;
+        private Color _borderColor = Color.Empty;
 
         /// <summary>
         /// creates a new instance of the <see cref="RoundButton"/>
@@ -83,7 +85,7 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _borderColor;
+                return GetBorderColor();
             }
             set
             {
@@ -129,25 +131,28 @@ namespace WindowsFormsControls
         /// <param name="graphics">the graphics of the control</param>
         private void DrawBorder(Graphics graphics, int width, int height)
         {
+            Color borderColor = GetBorderColor();
+            int borderSize = BorderSize;
+            int borderRadius = BorderRadius;
             RectangleF rectBorder = new(1, 1, width - 0.8F, height - 1);
-            GraphicsPath pathBorder = GetFigurePath(rectBorder, _borderRadius - 1F);
+            GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - 1F);
             Pen penBorder = null;
 
-            if (_borderRadius > 2)
+            if (borderRadius > 2)
             {
-                penBorder = new Pen(_borderColor, 2);
+                penBorder = new Pen(borderColor, 2);
                 penBorder.Alignment = PenAlignment.Inset;
 
-                if (_borderSize >= 1)
+                if (borderSize >= 1)
                 {
                     graphics.DrawPath(penBorder, pathBorder);
                 }
             }
             else
             {
-                if (_borderSize >= 1)
+                if (borderSize >= 1)
                 {
-                    penBorder = new Pen(_borderColor, _borderSize);
+                    penBorder = new Pen(borderColor, borderSize);
                     penBorder.Alignment = PenAlignment.Inset;
                     graphics.DrawRectangle(penBorder, 0, 0, width - 1, height - 1);
                 }
@@ -163,12 +168,13 @@ namespace WindowsFormsControls
         /// <param name="graphics">the graphics of the control</param>
         private void DrawSurface(Graphics graphics, int width, int height)
         {
+            int borderRadius = BorderRadius;
             Control parent = Parent;
             RectangleF rectSurface = new(0, 0, width, height);
-            GraphicsPath pathSurface = GetFigurePath(rectSurface, _borderRadius);
+            GraphicsPath pathSurface = GetFigurePath(rectSurface, borderRadius);
             Pen penSurface = new(parent.BackColor, 2);
 
-            if (_borderRadius > 2)
+            if (borderRadius > 2)
             {
                 Region = new Region(pathSurface);
                 graphics.DrawPath(penSurface, pathSurface);
@@ -214,14 +220,31 @@ namespace WindowsFormsControls
         /// <returns>the path of the control</returns>
         private GraphicsPath GetFigurePath(RectangleF rect, float radius)
         {
+            float x = rect.X;
+            float y = rect.Y;
+            float width = rect.Width;
+            float height = rect.Height;
+
             GraphicsPath path = new();
             path.StartFigure();
-            path.AddArc(rect.X, rect.Y, radius, radius, 180, 90);
-            path.AddArc(rect.Width - radius, rect.Y, radius, radius, 270, 90);
-            path.AddArc(rect.Width - radius, rect.Height - radius, radius, radius, 0, 90);
-            path.AddArc(rect.X, rect.Height - radius, radius, radius, 90, 90);
+            path.AddArc(x, y, radius, radius, 180, 90);
+            path.AddArc(width - radius, y, radius, radius, 270, 90);
+            path.AddArc(width - radius, height - radius, radius, radius, 0, 90);
+            path.AddArc(x, height - radius, radius, radius, 90, 90);
             path.CloseFigure();
             return path;
+        }
+
+
+        private Color GetBorderColor()
+        {
+            Color c = _borderColor;
+            if (c.IsEmpty)
+            {
+                c = s_borderColor;
+            }
+
+            return c;
         }
     }
 }

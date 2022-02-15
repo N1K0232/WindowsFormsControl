@@ -227,13 +227,14 @@ namespace WindowsFormsControls
         /// <param name="rectBorder">the rectangle of the border</param>
         private void DrawBorder(Graphics graphics, Rectangle rectBorder)
         {
+            int borderSize = BorderSize;
             Color c1 = _firstBorderColor;
             Color c2 = _secondBorderColor;
             LinearGradientBrush borderGColor = new(rectBorder, c1, c2, _gradientAngle);
-            Pen penBorder = new(borderGColor, _borderSize);
+            Pen penBorder = new(borderGColor, borderSize);
             penBorder.DashStyle = _borderLineStyle;
             penBorder.DashCap = _borderCapStyle;
-            if (_borderSize > 0)
+            if (borderSize > 0)
             {
                 graphics.DrawEllipse(penBorder, rectBorder);
             }
@@ -248,7 +249,8 @@ namespace WindowsFormsControls
         /// <returns>the smooth size of the control</returns>
         private int GetSmoothSize()
         {
-            return _borderSize > 0 ? _borderSize * 3 : 1;
+            int borderSize = BorderSize;
+            return borderSize > 0 ? borderSize * 3 : 1;
         }
 
         /// <summary>
@@ -268,7 +270,7 @@ namespace WindowsFormsControls
         /// <returns>the rectangle of the border</returns>
         private Rectangle GetBorderRectangle(Rectangle smoothRectangle)
         {
-            int size = -_borderSize;
+            int size = -BorderSize;
             return Rectangle.Inflate(smoothRectangle, size, size);
         }
     }

@@ -11,19 +11,32 @@ namespace WindowsFormsControls
     /// </summary>
     public partial class ButtonWOC : Button, IButtonControl
     {
+        //constants
         private const int DefaultBorderThickness = 6;
         private const int DefaultBorderThicknessByTwo = 3;
 
-        private Color _borderColor = Color.Black;
-        private Color _buttonColor = Color.RoyalBlue;
-        private Color _textColor = Color.White;
+        //static color fields
+        private static readonly Color s_borderColor = Color.Black;
+        private static readonly Color s_buttonColor = Color.RoyalBlue;
+        private static readonly Color s_textColor = Color.White;
+        private static readonly Color s_onHoverBorderColor = Color.Red;
+        private static readonly Color s_onHoverButtonColor = Color.Yellow;
+        private static readonly Color s_onHoverTextColor = Color.Black;
 
-        private Color _onHoverBorderColor = Color.Red;
-        private Color _onHoverButtonColor = Color.Yellow;
-        private Color _onHoverTextColor = Color.Black;
+        //colors
+        private Color _borderColor = Color.Empty;
+        private Color _buttonColor = Color.Empty;
+        private Color _textColor = Color.Empty;
+        private Color _onHoverBorderColor = Color.Empty;
+        private Color _onHoverButtonColor = Color.Empty;
+        private Color _onHoverTextColor = Color.Empty;
 
+        //these fields are used to draw the border
         private int _borderThickness = 0;
         private int _borderThicknessByTwo = 0;
+
+        //this field is used to redraw the control when the mouse enters
+        //or leaves the button area
         private bool _isHovering = false;
 
         /// <summary>
@@ -56,7 +69,9 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _borderColor;
+                //gets the _borderColor field value because the
+                //mouse doesn't hover the control
+                return GetBorderColor(false);
             }
             set
             {
@@ -79,7 +94,9 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _buttonColor;
+                //gets the _buttonColor value 
+                //because the mouse doesn't hover the control
+                return GetButtonColor(false);
             }
             set
             {
@@ -102,7 +119,9 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _textColor;
+                //gets the _textColor value 
+                //because the mouse doesn't hover the control
+                return GetTextColor(false);
             }
             set
             {
@@ -125,7 +144,9 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _onHoverBorderColor;
+                //gets the _onHoverButtonColor value 
+                //because the mouse hovers the control
+                return GetBorderColor(true);
             }
             set
             {
@@ -148,7 +169,9 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _onHoverButtonColor;
+                //gets the _onHoverButtonColor value 
+                //because the mouse hovers the control
+                return GetButtonColor(true);
             }
             set
             {
@@ -171,7 +194,9 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _onHoverTextColor;
+                //gets the _onHoverTuttonColor value 
+                //because the mouse hovers the control
+                return GetTextColor(true);
             }
             set
             {
@@ -194,7 +219,10 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _borderThickness == 0 ? DefaultBorderThickness : _borderThickness;
+                int thickness = _borderThickness;
+                return thickness == 0 ?
+                    DefaultBorderThickness :
+                    _borderThickness;
             }
             set
             {
@@ -217,7 +245,10 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _borderThicknessByTwo == 0 ? DefaultBorderThicknessByTwo : _borderThicknessByTwo;
+                int thickness = _borderThicknessByTwo;
+                return thickness == 0 ?
+                    DefaultBorderThicknessByTwo :
+                    _borderThicknessByTwo;
             }
             set
             {
@@ -263,12 +294,40 @@ namespace WindowsFormsControls
         /// <param name="graphics">the graphics of the control</param>
         private void DrawBorder(Graphics graphics, int width, int height)
         {
-            Color borderColor = GetBorderColor();
+            Color borderColor = GetBorderColor(_isHovering);
             SolidBrush brush = new(borderColor);
             graphics.FillEllipse(brush, 0, 0, height, height);
             graphics.FillEllipse(brush, width - height, 0, height, height);
             graphics.FillRectangle(brush, height / 2, 0, width - height, height);
             brush.Dispose();
+        }
+
+        /// <summary>
+        /// gets the border color of the button when the mouse hovers the button
+        /// </summary>
+        /// <returns></returns>
+        private Color GetBorderColor(bool isHovering)
+        {
+            Color c;
+
+            if (isHovering)
+            {
+                c = _onHoverBorderColor;
+                if (c.IsEmpty)
+                {
+                    c = s_onHoverBorderColor;
+                }
+            }
+            else
+            {
+                c = _borderColor;
+                if (c.IsEmpty)
+                {
+                    c = s_borderColor;
+                }
+            }
+
+            return c;
         }
 
         /// <summary>
@@ -279,7 +338,7 @@ namespace WindowsFormsControls
         {
             int borderThickness = BorderThickness;
             int borderThicknessByTwo = BorderThicknessByTwo;
-            Color buttonColor = GetButtonColor();
+            Color buttonColor = GetButtonColor(_isHovering);
             SolidBrush brush = new(buttonColor);
 
             graphics.FillEllipse(brush, borderThicknessByTwo, borderThicknessByTwo, height - borderThickness,
@@ -293,6 +352,34 @@ namespace WindowsFormsControls
         }
 
         /// <summary>
+        /// gets the button color when the mouse hovers the button
+        /// </summary>
+        /// <returns></returns>
+        private Color GetButtonColor(bool isHovering)
+        {
+            Color c;
+
+            if (isHovering)
+            {
+                c = _onHoverButtonColor;
+                if (c.IsEmpty)
+                {
+                    c = s_onHoverButtonColor;
+                }
+            }
+            else
+            {
+                c = _buttonColor;
+                if (c.IsEmpty)
+                {
+                    c = s_buttonColor;
+                }
+            }
+
+            return c;
+        }
+
+        /// <summary>
         /// draws the text
         /// </summary>
         /// <param name="graphics">the graphics of the control</param>
@@ -303,37 +390,38 @@ namespace WindowsFormsControls
             SizeF stringSize = graphics.MeasureString(text, font);
             float textWidth = (width - stringSize.Width) / 2;
             float textHeight = (height - stringSize.Height) / 2;
-            Color textColor = GetTextColor();
+            Color textColor = GetTextColor(_isHovering);
             SolidBrush brush = new(textColor);
             graphics.DrawString(text, font, brush, textWidth, textHeight);
             brush.Dispose();
         }
 
         /// <summary>
-        /// gets the border color of the button when the mouse hovers the button
-        /// </summary>
-        /// <returns></returns>
-        private Color GetBorderColor()
-        {
-            return _isHovering ? _onHoverBorderColor : _borderColor;
-        }
-
-        /// <summary>
-        /// gets the button color when the mouse hovers the button
-        /// </summary>
-        /// <returns></returns>
-        private Color GetButtonColor()
-        {
-            return _isHovering ? _onHoverButtonColor : _buttonColor;
-        }
-
-        /// <summary>
         /// gets the text color of the button when the mouse hovers the button
         /// </summary>
         /// <returns></returns>
-        private Color GetTextColor()
+        private Color GetTextColor(bool isHovering)
         {
-            return _isHovering ? _onHoverTextColor : _textColor;
+            Color c;
+
+            if (isHovering)
+            {
+                c = _onHoverTextColor;
+                if (c.IsEmpty)
+                {
+                    c = s_onHoverTextColor;
+                }
+            }
+            else
+            {
+                c = _textColor;
+                if (c.IsEmpty)
+                {
+                    c = s_textColor;
+                }
+            }
+
+            return c;
         }
 
         /// <summary>

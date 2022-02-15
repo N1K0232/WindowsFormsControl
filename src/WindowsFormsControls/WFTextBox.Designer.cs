@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace WindowsFormsControls
 {
-    public partial class WFTextBox
+    partial class WFTextBox
     {
         private IContainer components = null;
         private TextBox textBox;
@@ -23,43 +23,41 @@ namespace WindowsFormsControls
             base.Dispose(disposing);
         }
 
-        /// <summary> 
-        /// Initializes the control
-        /// </summary>
         private void InitializeComponent()
         {
-            textBox = new TextBox();
-            SuspendLayout();
+            this.textBox = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
             // 
             // textBox
             // 
-            textBox.BorderStyle = BorderStyle.None;
-            textBox.Dock = DockStyle.Fill;
-            textBox.ForeColor = Color.Black;
-            textBox.Location = new Point(10, 7);
-            textBox.Name = "textBox";
-            textBox.Size = new Size(230, 22);
-            textBox.TabIndex = 0;
-            textBox.Click += new EventHandler(TextBox_Click);
-            textBox.TextChanged += new EventHandler(TextBox_TextChanged);
-            textBox.Enter += new EventHandler(TextBox_Enter);
-            textBox.KeyPress += new KeyPressEventHandler(TextBox_KeyPress);
-            textBox.Leave += new EventHandler(TextBox_Leave);
-            textBox.MouseEnter += new EventHandler(TextBox_MouseEnter);
-            textBox.MouseLeave += new EventHandler(TextBox_MouseLeave);
+            this.textBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox.Location = new System.Drawing.Point(7, 7);
+            this.textBox.Name = "textBox";
+            this.textBox.Size = new System.Drawing.Size(236, 22);
+            this.textBox.TabIndex = 0;
+            this.textBox.Click += new System.EventHandler(this.TextBox_Click);
+            this.textBox.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.textBox.Enter += new System.EventHandler(this.TextBox_Enter);
+            this.textBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
+            this.textBox.Leave += new System.EventHandler(this.TextBox_Leave);
+            this.textBox.MouseEnter += new System.EventHandler(this.TextBox_MouseEnter);
+            this.textBox.MouseLeave += new System.EventHandler(this.TextBox_MouseLeave);
             // 
             // WFTextBox
             // 
-            AutoScaleMode = AutoScaleMode.None;
-            BackColor = SystemColors.Window;
-            Controls.Add(textBox);
-            Font = new Font("Segoe UI", 9.5F, FontStyle.Regular, GraphicsUnit.Point);
-            ForeColor = Color.DimGray;
-            Name = "WFTextBox";
-            Padding = new Padding(10, 7, 10, 7);
-            Size = new Size(250, 30);
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.textBox);
+            this.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ForeColor = System.Drawing.Color.DimGray;
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "WFTextBox";
+            this.Padding = new System.Windows.Forms.Padding(7);
+            this.Size = new System.Drawing.Size(250, 30);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
     }
 }

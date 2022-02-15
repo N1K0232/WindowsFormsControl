@@ -6,9 +6,9 @@ using System.Windows.Forms;
 namespace WindowsFormsControls
 {
     /// <summary>
-    /// represents a windows button
+    /// represents a cute windows button with rounded corners
     /// </summary>
-    public partial class CuteButton : Button, IButtonControl
+    public partial class CuteRoundButton : RoundButton
     {
         private static readonly Color s_firstColor = Color.LightGreen;
         private static readonly Color s_secondColor = Color.DarkBlue;
@@ -19,17 +19,14 @@ namespace WindowsFormsControls
         private int _secondColorTransparency = 80;
 
         /// <summary>
-        /// creates a new instance of the <see cref="CuteButton"/>
+        /// creates a new instance of the <see cref="CuteRoundButton"/>
         /// class
         /// </summary>
-        public CuteButton()
+        public CuteRoundButton() : base()
         {
-            Size = new Size(120, 50);
+            BorderColor = Color.White;
+            BackColor = Color.White;
             ForeColor = Color.Black;
-            Font = new Font("Segoe UI", 12F);
-            FlatAppearance.BorderColor = Color.White;
-            FlatAppearance.BorderSize = 0;
-            FlatStyle = FlatStyle.Flat;
         }
 
         /// <summary>
@@ -124,10 +121,6 @@ namespace WindowsFormsControls
             }
         }
 
-        /// <summary>
-        /// redraws the control
-        /// </summary>
-        /// <param name="pe"></param>
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
