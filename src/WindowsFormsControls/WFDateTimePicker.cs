@@ -13,9 +13,13 @@ namespace WindowsFormsControls
         private const int CalendarIconWidth = 34;
         private const int ArrowIconWidth = 17;
 
-        private Color _skinColor = Color.RoyalBlue;
-        private Color _textColor = Color.White;
-        private Color _borderColor = Color.PaleVioletRed;
+        private static readonly Color s_skinColor = Color.RoyalBlue;
+        private static readonly Color s_textColor = Color.White;
+        private static readonly Color s_borderColor = Color.PaleVioletRed;
+
+        private Color _skinColor = Color.Empty;
+        private Color _textColor = Color.Empty;
+        private Color _borderColor = Color.Empty;
         private int _borderSize = 0;
 
         private bool _droppedDown = false;
@@ -43,7 +47,7 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _skinColor;
+                return GetSkinColor();
             }
             set
             {
@@ -68,7 +72,7 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _textColor;
+                return GetTextColor();
             }
             set
             {
@@ -92,7 +96,7 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _borderColor;
+                return GetBorderColor();
             }
             set
             {
@@ -178,7 +182,8 @@ namespace WindowsFormsControls
         /// <param name="clientArea">the client area of the control</param>
         private void DrawBorder(Graphics graphics, RectangleF clientArea)
         {
-            Pen penBorder = new(_borderColor, _borderSize);
+            Color color = GetBorderColor();
+            Pen penBorder = new(color, _borderSize);
             float x = clientArea.X;
             float y = clientArea.Y;
             float width = clientArea.Width;
@@ -197,10 +202,14 @@ namespace WindowsFormsControls
         /// <param name="clientArea">the client area of the control</param>
         private void DrawRectangle(Graphics graphics, RectangleF clientArea)
         {
-            RectangleF iconArea = new(clientArea.Width - CalendarIconWidth, 0, CalendarIconWidth, clientArea.Height);
+            float width = clientArea.Width;
+            float height = clientArea.Height;
+            float iconWidth = CalendarIconWidth;
+            RectangleF iconArea = new(width - iconWidth, 0, iconWidth, height);
+            Color skinColor = GetSkinColor();
             Color iconColor = Color.FromArgb(50, 64, 64, 64);
             SolidBrush openIconBrush = new(iconColor);
-            SolidBrush skinBrush = new(_skinColor);
+            SolidBrush skinBrush = new(skinColor);
             graphics.FillRectangle(skinBrush, clientArea);
 
             if (_droppedDown)
@@ -215,8 +224,12 @@ namespace WindowsFormsControls
         /// <param name="graphics">the graphics of the control</param>
         private void DrawImage(Graphics graphics)
         {
-            int x = Width - _calendarIcon.Width - 9;
-            int y = (Height - _calendarIcon.Height) / 2;
+            int width = Width;
+            int height = Height;
+            int iconWidth = _calendarIcon.Width - 9;
+            int iconHeight = _calendarIcon.Height;
+            int x = width - iconWidth - 9;
+            int y = (height - iconHeight) / 2;
             graphics.DrawImage(_calendarIcon, x, y);
         }
 
@@ -229,7 +242,8 @@ namespace WindowsFormsControls
         {
             Font font = Font;
             string text = "   " + Text;
-            SolidBrush textBrush = new(_textColor);
+            Color textColor = GetTextColor();
+            SolidBrush textBrush = new(textColor);
             StringFormat textFormat = new();
             textFormat.Alignment = StringAlignment.Center;
             graphics.DrawString(text, font, textBrush, clientArea, textFormat);
@@ -247,7 +261,16 @@ namespace WindowsFormsControls
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            if (_iconButtonArea.Contains(e.Location))
+            ChangeCursor(e.Location);
+        }
+
+        /// <summary>
+        /// changes the cursor giving the location of the mouse
+        /// </summary>
+        /// <param name="location">the location of the mouse</param>
+        private void ChangeCursor(Point location)
+        {
+            if (_iconButtonArea.Contains(location))
             {
                 Cursor = Cursors.Hand;
             }
@@ -293,6 +316,54 @@ namespace WindowsFormsControls
             {
                 return ArrowIconWidth;
             }
+        }
+
+        /// <summary>
+        /// gets the value of the _skinColor field
+        /// or the value of the s_skinColor field
+        /// </summary>
+        /// <returns>the skin color of the control</returns>
+        private Color GetSkinColor()
+        {
+            Color c = _skinColor;
+            if (c.IsEmpty)
+            {
+                c = s_skinColor;
+            }
+
+            return c;
+        }
+
+        /// <summary>
+        /// gets the value of the _borderColor field
+        /// or the value of the s_borderColor field
+        /// </summary>
+        /// <returns>the border color of the control</returns>
+        private Color GetBorderColor()
+        {
+            Color c = _borderColor;
+            if (c.IsEmpty)
+            {
+                c = s_borderColor;
+            }
+
+            return c;
+        }
+
+        /// <summary>
+        /// gets the value of the _textColor field
+        /// or the value of the s_textColor field
+        /// </summary>
+        /// <returns>the text color of the control</returns>
+        private Color GetTextColor()
+        {
+            Color c = _textColor;
+            if (c.IsEmpty)
+            {
+                c = s_textColor;
+            }
+
+            return c;
         }
     }
 }

@@ -238,11 +238,8 @@ namespace WindowsFormsControls
         /// <returns>the path of the control</returns>
         private GraphicsPath GetFigurePath()
         {
-            int width = Width;
-            int height = Height;
-            int arcSize = height - 1;
-            Rectangle leftArc = new(0, 0, arcSize, arcSize);
-            Rectangle rightArc = new(width - arcSize - 2, 0, arcSize, arcSize);
+            Rectangle leftArc = GetLeftArc();
+            Rectangle rightArc = GetRightArc();
 
             GraphicsPath path = new();
             path.StartFigure();
@@ -251,6 +248,31 @@ namespace WindowsFormsControls
             path.CloseFigure();
 
             return path;
+        }
+
+        /// <summary>
+        /// gets the left arc rectangle of the toggle button
+        /// </summary>
+        /// <returns>the left arc rectangle of the toggle button</returns>
+        private Rectangle GetLeftArc()
+        {
+            int height = Height;
+            int arcSize = height - 1;
+            Rectangle leftArc = new(0, 0, arcSize, arcSize);
+            return leftArc;
+        }
+
+        /// <summary>
+        /// gets the right arc rectangle of the toggle button
+        /// </summary>
+        /// <returns>the right arc rectangle of the toggle button</returns>
+        private Rectangle GetRightArc()
+        {
+            int width = Width;
+            int height = Height;
+            int arcSize = height - 1;
+            Rectangle rightArc = new(width - arcSize - 2, 0, arcSize, arcSize);
+            return rightArc;
         }
     }
 }
