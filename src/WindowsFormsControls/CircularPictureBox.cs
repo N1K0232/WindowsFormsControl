@@ -11,10 +11,13 @@ namespace WindowsFormsControls
     /// </summary>
     public partial class CircularPictureBox : PictureBox
     {
+        private static readonly Color s_firstBorderColor = Color.RoyalBlue;
+        private static readonly Color s_secondBorderColor = Color.HotPink;
+
         private int _borderSize = 2;
         private float _gradientAngle = 50F;
-        private Color _firstBorderColor = Color.RoyalBlue;
-        private Color _secondBorderColor = Color.HotPink;
+        private Color _firstBorderColor = Color.Empty;
+        private Color _secondBorderColor = Color.Empty;
         private DashStyle _borderLineStyle = DashStyle.Solid;
         private DashCap _borderCapStyle = DashCap.Flat;
 
@@ -83,16 +86,30 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _firstBorderColor;
+                Color c = _firstBorderColor;
+
+                if (c.IsEmpty)
+                {
+                    c = s_firstBorderColor;
+                }
+
+                return c;
             }
             set
             {
-                if (value == FirstBorderColor)
+                Color c = value;
+
+                if (c == FirstBorderColor)
                 {
                     return;
                 }
 
-                _firstBorderColor = value;
+                if (c.IsEmpty)
+                {
+                    c = s_firstBorderColor;
+                }
+
+                _firstBorderColor = c;
                 Invalidate();
             }
         }
@@ -106,16 +123,30 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _secondBorderColor;
+                Color c = _secondBorderColor;
+
+                if (c.IsEmpty)
+                {
+                    c = s_secondBorderColor;
+                }
+
+                return c;
             }
             set
             {
-                if (value == SecondBorderColor)
+                Color c = value;
+
+                if (c == SecondBorderColor)
                 {
                     return;
                 }
 
-                _secondBorderColor = value;
+                if (c.IsEmpty)
+                {
+                    c = s_secondBorderColor;
+                }
+
+                _secondBorderColor = c;
                 Invalidate();
             }
         }
@@ -228,12 +259,13 @@ namespace WindowsFormsControls
         private void DrawBorder(Graphics graphics, Rectangle rectBorder)
         {
             int borderSize = BorderSize;
-            Color c1 = _firstBorderColor;
-            Color c2 = _secondBorderColor;
-            LinearGradientBrush borderGColor = new(rectBorder, c1, c2, _gradientAngle);
+            Color c1 = FirstBorderColor;
+            Color c2 = SecondBorderColor;
+            float angle = GradientAngle;
+            LinearGradientBrush borderGColor = new(rectBorder, c1, c2, angle);
             Pen penBorder = new(borderGColor, borderSize);
-            penBorder.DashStyle = _borderLineStyle;
-            penBorder.DashCap = _borderCapStyle;
+            penBorder.DashStyle = BorderLineStyle;
+            penBorder.DashCap = BorderCapStyle;
             if (borderSize > 0)
             {
                 graphics.DrawEllipse(penBorder, rectBorder);

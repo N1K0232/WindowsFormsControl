@@ -75,12 +75,19 @@ namespace WindowsFormsControls
             }
             set
             {
-                if (value == BorderColor)
+                Color c = value;
+
+                if (c == BorderColor)
                 {
                     return;
                 }
 
-                _borderColor = value;
+                if (c.IsEmpty)
+                {
+                    c = s_borderColor;
+                }
+
+                _borderColor = c;
                 Invalidate();
             }
         }
@@ -100,12 +107,19 @@ namespace WindowsFormsControls
             }
             set
             {
-                if (value == ButtonColor)
+                Color c = value;
+
+                if (c == ButtonColor)
                 {
                     return;
                 }
 
-                _buttonColor = value;
+                if (c.IsEmpty)
+                {
+                    c = s_buttonColor;
+                }
+
+                _buttonColor = c;
                 Invalidate();
             }
         }
@@ -125,12 +139,19 @@ namespace WindowsFormsControls
             }
             set
             {
-                if (value == TextColor)
+                Color c = value;
+
+                if (c == TextColor)
                 {
                     return;
                 }
 
-                _textColor = value;
+                if (c.IsEmpty)
+                {
+                    c = s_textColor;
+                }
+
+                _textColor = c;
                 Invalidate();
             }
         }
@@ -150,12 +171,19 @@ namespace WindowsFormsControls
             }
             set
             {
-                if (value == OnHoverBorderColor)
+                Color c = value;
+
+                if (c == OnHoverBorderColor)
                 {
                     return;
                 }
 
-                _onHoverBorderColor = value;
+                if (c.IsEmpty)
+                {
+                    c = s_onHoverBorderColor;
+                }
+
+                _onHoverBorderColor = c;
                 Invalidate();
             }
         }
@@ -175,12 +203,19 @@ namespace WindowsFormsControls
             }
             set
             {
-                if (value == OnHoverButtonColor)
+                Color c = value;
+
+                if (c == OnHoverButtonColor)
                 {
                     return;
                 }
 
-                _onHoverButtonColor = value;
+                if (c.IsEmpty)
+                {
+                    c = s_onHoverButtonColor;
+                }
+
+                _onHoverButtonColor = c;
                 Invalidate();
             }
         }
@@ -200,12 +235,19 @@ namespace WindowsFormsControls
             }
             set
             {
-                if (value == OnHoverTextColor)
+                Color c = value;
+
+                if (c == OnHoverTextColor)
                 {
                     return;
                 }
 
-                _onHoverTextColor = value;
+                if (c.IsEmpty)
+                {
+                    c = s_onHoverTextColor;
+                }
+
+                _onHoverTextColor = c;
                 Invalidate();
             }
         }
