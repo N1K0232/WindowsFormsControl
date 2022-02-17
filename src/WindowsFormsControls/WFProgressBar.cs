@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace WindowsFormsControls
 {
+    /// <summary>
+    /// represents a windows progress bar
+    /// </summary>
     public partial class WFProgressBar : ProgressBar
     {
         private Color _channelColor = Color.LightSteelBlue;
@@ -17,16 +20,25 @@ namespace WindowsFormsControls
         private bool _paintedBack = false;
         private bool _stopPainting = false;
 
+        /// <summary>
+        /// creates a new instance of the <see cref="WFProgressBar"/>
+        /// class
+        /// </summary>
         public WFProgressBar()
         {
             SetStyle(ControlStyles.UserPaint, true);
             ForeColor = Color.White;
         }
 
+
         [Category("Control appearance")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         public Color ChannelColor
         {
-            get => _channelColor;
+            get
+            {
+                return _channelColor;
+            }
             set
             {
                 _channelColor = value;
@@ -34,10 +46,15 @@ namespace WindowsFormsControls
             }
         }
 
+
         [Category("Control appearance")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         public Color SliderColor
         {
-            get => _sliderColor;
+            get
+            {
+                return _sliderColor;
+            }
             set
             {
                 _sliderColor = value;
@@ -45,10 +62,15 @@ namespace WindowsFormsControls
             }
         }
 
+
         [Category("Control appearance")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         public Color ForeBackColor
         {
-            get => _foreBackColor;
+            get
+            {
+                return _foreBackColor;
+            }
             set
             {
                 _foreBackColor = value;
@@ -56,10 +78,15 @@ namespace WindowsFormsControls
             }
         }
 
+
         [Category("Control appearance")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         public int ChannelHeight
         {
-            get => _channelHeight;
+            get
+            {
+                return _channelHeight;
+            }
             set
             {
                 _channelHeight = value;
@@ -67,10 +94,15 @@ namespace WindowsFormsControls
             }
         }
 
+
         [Category("Control appearance")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         public int SliderHeight
         {
-            get => _sliderHeight;
+            get
+            {
+                return _sliderHeight;
+            }
             set
             {
                 _sliderHeight = value;
@@ -78,16 +110,22 @@ namespace WindowsFormsControls
             }
         }
 
+
         [Category("Control appearance")]
+        [EditorBrowsable(EditorBrowsableState.Always)]
         public TextPosition ShowValue
         {
-            get => _showValue;
+            get
+            {
+                return _showValue;
+            }
             set
             {
                 _showValue = value;
                 Invalidate();
             }
         }
+
 
         [Category("Control appearance")]
         [Browsable(true)]
@@ -117,22 +155,35 @@ namespace WindowsFormsControls
             }
         }
 
+        /// <summary>
+        /// paints the background of the control
+        /// </summary>
+        /// <param name="pe">the event informations</param>
         protected override void OnPaintBackground(PaintEventArgs pe)
         {
+            DrawBackground(pe);
+        }
+
+        /// <summary>
+        /// draws the background of the control
+        /// </summary>
+        /// <param name="pe">the event informations</param>
+        private void DrawBackground(PaintEventArgs pe)
+        {
+            Graphics graphics = pe.Graphics;
+            Control parent = Parent;
+            SolidBrush brushChannel = new(_channelColor);
             int value = Value;
             int minimum = Minimum;
             int maximum = Maximum;
             int width = Width;
             int height = Height;
-            Control parent = Parent;
+            Rectangle rectChannel = new(0, 0, width, _channelHeight);
 
             if (!_stopPainting)
             {
                 if (!_paintedBack)
                 {
-                    Graphics graphics = pe.Graphics;
-                    Rectangle rectChannel = new(0, 0, width, _channelHeight);
-                    using var brushChannel = new SolidBrush(_channelColor);
                     if (_channelHeight >= _sliderHeight)
                     {
                         rectChannel.Y = height - _channelHeight;
@@ -156,23 +207,39 @@ namespace WindowsFormsControls
                     _paintedBack = false;
                 }
             }
+
+            brushChannel.Dispose();
         }
+
+        /// <summary>
+        /// raises the <see cref="Control.Paint"/>
+        /// event
+        /// </summary>
+        /// <param name="pe">the event informations</param>
         protected override void OnPaint(PaintEventArgs pe)
+        {
+            DrawControl(pe);
+        }
+
+        /// <summary>
+        /// draws the control
+        /// </summary>
+        /// <param name="pe">the event informations</param>
+        private void DrawControl(PaintEventArgs pe)
         {
             double value = Convert.ToDouble(Value);
             double minimum = Convert.ToDouble(Minimum);
             double maximum = Convert.ToDouble(Maximum);
             int width = Width;
             int height = Height;
+            Graphics graphics = pe.Graphics;
+            double scaleFactor = ((value - minimum) / (maximum - minimum));
+            int sliderWidth = Convert.ToInt32(width * scaleFactor);
+            Rectangle rectSlider = new(0, 0, sliderWidth, _sliderHeight);
+            SolidBrush brushSlider = new(_sliderColor);
 
             if (!_stopPainting)
             {
-                Graphics graphics = pe.Graphics;
-                double scaleFactor = ((value - minimum) / (maximum - minimum));
-                int sliderWidth = Convert.ToInt32(width * scaleFactor);
-                Rectangle rectSlider = new(0, 0, sliderWidth, _sliderHeight);
-                using var brushSlider = new SolidBrush(_sliderColor);
-
                 if (_sliderHeight >= _channelHeight)
                 {
                     rectSlider.Y = height - _sliderHeight;
@@ -186,27 +253,35 @@ namespace WindowsFormsControls
                 {
                     graphics.FillRectangle(brushSlider, rectSlider);
                 }
+
                 if (_showValue != TextPosition.None)
                 {
-                    DrawValueText(graphics, sliderWidth, rectSlider);
+                    DrawValueText(graphics, sliderWidth, width, rectSlider);
                 }
             }
+
+            brushSlider.Dispose();
         }
 
-        private void DrawValueText(Graphics graphics, int sliderWidth, Rectangle rectSlider)
+        /// <summary>
+        /// draws the Text of the control
+        /// </summary>
+        /// <param name="graphics">the graphics of the control</param>
+        /// <param name="sliderWidth">the width of the slider</param>
+        /// <param name="width">the width of the control</param>
+        /// <param name="rectSlider">the rectangle of the slider</param>
+        private void DrawValueText(Graphics graphics, int sliderWidth, int width, Rectangle rectSlider)
         {
             Control parent = Parent;
-            int width = Width;
-            int height = Height;
             string text = Value.ToString() + "%";
             Font font = Font;
             Size textSize = TextRenderer.MeasureText(text, font);
             Rectangle rectText = new(0, 0, textSize.Width, textSize.Height + 2);
             Color textColor = ForeColor;
             Color backColor = _foreBackColor;
-            using var brushText = new SolidBrush(textColor);
-            using var brushTextBack = new SolidBrush(backColor);
-            using var textFormat = new StringFormat();
+            SolidBrush brushText = new(textColor);
+            SolidBrush brushTextBack = new(backColor);
+            StringFormat textFormat = new();
 
             switch (_showValue)
             {
@@ -226,18 +301,21 @@ namespace WindowsFormsControls
                     rectText.X = sliderWidth - textSize.Width;
                     textFormat.Alignment = StringAlignment.Center;
 
-                    using (var brushClear = new SolidBrush(parent.BackColor))
-                    {
-                        Rectangle rect = rectSlider;
-                        rect.Y = rectText.Y;
-                        rect.Height = rectText.Height;
-                        graphics.FillRectangle(brushClear, rect);
-                    }
+                    SolidBrush brushClear = new(parent.BackColor);
+                    Rectangle rect = rectSlider;
+                    rect.Y = rectText.Y;
+                    rect.Height = rectText.Height;
+                    graphics.FillRectangle(brushClear, rect);
+                    brushClear.Dispose();
                     break;
             }
 
             graphics.FillRectangle(brushTextBack, rectText);
             graphics.DrawString(text, font, brushText, rectText, textFormat);
+
+            textFormat.Dispose();
+            brushTextBack.Dispose();
+            brushText.Dispose();
         }
     }
 }
