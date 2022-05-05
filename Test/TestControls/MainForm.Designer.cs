@@ -1,11 +1,16 @@
-﻿namespace TestControls
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using WindowsFormsControls;
+
+namespace TestControls
 {
-    partial class MainForm
+    public partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         ///  Clean up any resources being used.
@@ -28,192 +33,252 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.firstButton = new WindowsFormsControls.ButtonWOC();
-            this.secondButton = new WindowsFormsControls.RoundButton();
-            this.thirdButton = new WindowsFormsControls.CuteButton();
-            this.wfTextBox1 = new WindowsFormsControls.WFTextBox();
-            this.wfDateTimePicker1 = new WindowsFormsControls.WFDateTimePicker();
-            this.wfDateTimePicker2 = new WindowsFormsControls.WFDateTimePicker();
-            this.wfDateTimePicker3 = new WindowsFormsControls.WFDateTimePicker();
-            this.buttonwoc1 = new WindowsFormsControls.ButtonWOC();
-            this.SuspendLayout();
+            firstButton = new ButtonWOC();
+            secondButton = new RoundButton();
+            thirdButton = new CuteButton();
+            wfTextBox1 = new WFTextBox();
+            wfDateTimePicker1 = new WFDateTimePicker();
+            wfDateTimePicker2 = new WFDateTimePicker();
+            wfDateTimePicker3 = new WFDateTimePicker();
+            buttonwoc1 = new ButtonWOC();
+            buttonwoc2 = new ButtonWOC();
+            cuteRoundButton1 = new CuteRoundButton();
+            SuspendLayout();
             // 
             // firstButton
             // 
-            this.firstButton.BackColor = System.Drawing.Color.Transparent;
-            this.firstButton.BorderColor = System.Drawing.Color.Black;
-            this.firstButton.BorderThickness = 6;
-            this.firstButton.BorderThicknessByTwo = 3;
-            this.firstButton.ButtonColor = System.Drawing.Color.RoyalBlue;
-            this.firstButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.firstButton.FlatAppearance.BorderSize = 0;
-            this.firstButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.firstButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.firstButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.firstButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.firstButton.ForeColor = System.Drawing.Color.Transparent;
-            this.firstButton.Location = new System.Drawing.Point(366, 243);
-            this.firstButton.MinimumSize = new System.Drawing.Size(150, 50);
-            this.firstButton.Name = "firstButton";
-            this.firstButton.OnHoverBorderColor = System.Drawing.Color.Red;
-            this.firstButton.OnHoverButtonColor = System.Drawing.Color.Yellow;
-            this.firstButton.OnHoverTextColor = System.Drawing.Color.Black;
-            this.firstButton.Size = new System.Drawing.Size(188, 62);
-            this.firstButton.TabIndex = 0;
-            this.firstButton.Text = "first button";
-            this.firstButton.TextColor = System.Drawing.Color.White;
-            this.firstButton.UseVisualStyleBackColor = false;
-            this.firstButton.Click += new System.EventHandler(this.Button_Click);
+            firstButton.BackColor = Color.Transparent;
+            firstButton.BorderColor = Color.Black;
+            firstButton.BorderThickness = 6;
+            firstButton.BorderThicknessByTwo = 3;
+            firstButton.ButtonColor = Color.RoyalBlue;
+            firstButton.FlatAppearance.BorderColor = Color.White;
+            firstButton.FlatAppearance.BorderSize = 0;
+            firstButton.FlatAppearance.MouseDownBackColor = Color.White;
+            firstButton.FlatAppearance.MouseOverBackColor = Color.White;
+            firstButton.FlatStyle = FlatStyle.Flat;
+            firstButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            firstButton.ForeColor = Color.Transparent;
+            firstButton.Location = new Point(366, 243);
+            firstButton.MinimumSize = new Size(150, 50);
+            firstButton.Name = "firstButton";
+            firstButton.OnHoverBorderColor = Color.Red;
+            firstButton.OnHoverButtonColor = Color.Yellow;
+            firstButton.OnHoverTextColor = Color.Black;
+            firstButton.Size = new Size(188, 62);
+            firstButton.TabIndex = 0;
+            firstButton.Text = "first button";
+            firstButton.TextColor = Color.White;
+            firstButton.UseVisualStyleBackColor = false;
             // 
             // secondButton
             // 
-            this.secondButton.BackColor = System.Drawing.Color.RoyalBlue;
-            this.secondButton.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.secondButton.BorderRadius = 40;
-            this.secondButton.BorderSize = 0;
-            this.secondButton.FlatAppearance.BorderSize = 0;
-            this.secondButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.secondButton.ForeColor = System.Drawing.Color.White;
-            this.secondButton.Location = new System.Drawing.Point(144, 120);
-            this.secondButton.Name = "secondButton";
-            this.secondButton.Size = new System.Drawing.Size(188, 50);
-            this.secondButton.TabIndex = 1;
-            this.secondButton.Text = "second button";
-            this.secondButton.UseVisualStyleBackColor = false;
-            this.secondButton.Click += new System.EventHandler(this.Button_Click);
+            secondButton.BackColor = Color.RoyalBlue;
+            secondButton.BorderColor = Color.PaleVioletRed;
+            secondButton.BorderRadius = 40;
+            secondButton.BorderSize = 0;
+            secondButton.FlatAppearance.BorderSize = 0;
+            secondButton.FlatStyle = FlatStyle.Flat;
+            secondButton.ForeColor = Color.White;
+            secondButton.Location = new Point(144, 120);
+            secondButton.Name = "secondButton";
+            secondButton.Size = new Size(188, 50);
+            secondButton.TabIndex = 1;
+            secondButton.Text = "second button";
+            secondButton.UseVisualStyleBackColor = false;
             // 
             // thirdButton
             // 
-            this.thirdButton.FirstColor = System.Drawing.Color.LightGreen;
-            this.thirdButton.FirstColorTransparency = 80;
-            this.thirdButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.thirdButton.FlatAppearance.BorderSize = 0;
-            this.thirdButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.thirdButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.thirdButton.ForeColor = System.Drawing.Color.Black;
-            this.thirdButton.Location = new System.Drawing.Point(472, 115);
-            this.thirdButton.Name = "thirdButton";
-            this.thirdButton.SecondColor = System.Drawing.Color.DarkBlue;
-            this.thirdButton.SecondColorTransparency = 80;
-            this.thirdButton.Size = new System.Drawing.Size(150, 62);
-            this.thirdButton.TabIndex = 2;
-            this.thirdButton.Text = "third button";
-            this.thirdButton.UseVisualStyleBackColor = true;
-            this.thirdButton.Click += new System.EventHandler(this.Button_Click);
+            thirdButton.FirstColor = Color.LightGreen;
+            thirdButton.FirstColorTransparency = 80;
+            thirdButton.FlatAppearance.BorderColor = Color.White;
+            thirdButton.FlatAppearance.BorderSize = 0;
+            thirdButton.FlatStyle = FlatStyle.Flat;
+            thirdButton.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            thirdButton.ForeColor = Color.Black;
+            thirdButton.Location = new Point(472, 115);
+            thirdButton.Name = "thirdButton";
+            thirdButton.SecondColor = Color.DarkBlue;
+            thirdButton.SecondColorTransparency = 80;
+            thirdButton.Size = new Size(150, 62);
+            thirdButton.TabIndex = 2;
+            thirdButton.Text = "third button";
+            thirdButton.UseVisualStyleBackColor = true;
             // 
             // wfTextBox1
             // 
-            this.wfTextBox1.BackColor = System.Drawing.Color.White;
-            this.wfTextBox1.BorderColor = System.Drawing.Color.RoyalBlue;
-            this.wfTextBox1.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.wfTextBox1.BorderSize = 2;
-            this.wfTextBox1.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.wfTextBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.wfTextBox1.Location = new System.Drawing.Point(374, 377);
-            this.wfTextBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.wfTextBox1.Multiline = false;
-            this.wfTextBox1.Name = "wfTextBox1";
-            this.wfTextBox1.Padding = new System.Windows.Forms.Padding(7);
-            this.wfTextBox1.PasswordChar = false;
-            this.wfTextBox1.Size = new System.Drawing.Size(312, 36);
-            this.wfTextBox1.TabIndex = 3;
-            this.wfTextBox1.TextString = "";
-            this.wfTextBox1.UnderlinedStyle = false;
+            wfTextBox1.BackColor = Color.White;
+            wfTextBox1.BorderColor = Color.RoyalBlue;
+            wfTextBox1.BorderFocusColor = Color.HotPink;
+            wfTextBox1.BorderSize = 2;
+            wfTextBox1.Font = new Font("Segoe UI", 9.5F, FontStyle.Regular, GraphicsUnit.Point);
+            wfTextBox1.ForeColor = Color.DimGray;
+            wfTextBox1.Location = new Point(374, 377);
+            wfTextBox1.Margin = new Padding(4);
+            wfTextBox1.Multiline = false;
+            wfTextBox1.Name = "wfTextBox1";
+            wfTextBox1.Padding = new Padding(7);
+            wfTextBox1.PasswordChar = false;
+            wfTextBox1.Size = new Size(312, 36);
+            wfTextBox1.TabIndex = 3;
+            wfTextBox1.TextString = "";
+            wfTextBox1.UnderlinedStyle = false;
             // 
             // wfDateTimePicker1
             // 
-            this.wfDateTimePicker1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.wfDateTimePicker1.BorderSize = 0;
-            this.wfDateTimePicker1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.wfDateTimePicker1.Location = new System.Drawing.Point(307, 45);
-            this.wfDateTimePicker1.MinimumSize = new System.Drawing.Size(0, 35);
-            this.wfDateTimePicker1.Name = "wfDateTimePicker1";
-            this.wfDateTimePicker1.Size = new System.Drawing.Size(250, 35);
-            this.wfDateTimePicker1.SkinColor = System.Drawing.Color.MediumSlateBlue;
-            this.wfDateTimePicker1.TabIndex = 4;
-            this.wfDateTimePicker1.TextColor = System.Drawing.Color.White;
+            wfDateTimePicker1.BorderColor = Color.PaleVioletRed;
+            wfDateTimePicker1.BorderSize = 0;
+            wfDateTimePicker1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            wfDateTimePicker1.Location = new Point(307, 45);
+            wfDateTimePicker1.MinimumSize = new Size(0, 35);
+            wfDateTimePicker1.Name = "wfDateTimePicker1";
+            wfDateTimePicker1.Size = new Size(250, 35);
+            wfDateTimePicker1.SkinColor = Color.MediumSlateBlue;
+            wfDateTimePicker1.TabIndex = 4;
+            wfDateTimePicker1.TextColor = Color.White;
             // 
             // wfDateTimePicker2
             // 
-            this.wfDateTimePicker2.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.wfDateTimePicker2.BorderSize = 0;
-            this.wfDateTimePicker2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.wfDateTimePicker2.Location = new System.Drawing.Point(22, 45);
-            this.wfDateTimePicker2.MinimumSize = new System.Drawing.Size(0, 35);
-            this.wfDateTimePicker2.Name = "wfDateTimePicker2";
-            this.wfDateTimePicker2.Size = new System.Drawing.Size(250, 35);
-            this.wfDateTimePicker2.SkinColor = System.Drawing.Color.MediumSlateBlue;
-            this.wfDateTimePicker2.TabIndex = 5;
-            this.wfDateTimePicker2.TextColor = System.Drawing.Color.White;
+            wfDateTimePicker2.BorderColor = Color.PaleVioletRed;
+            wfDateTimePicker2.BorderSize = 0;
+            wfDateTimePicker2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            wfDateTimePicker2.Location = new Point(22, 45);
+            wfDateTimePicker2.MinimumSize = new Size(0, 35);
+            wfDateTimePicker2.Name = "wfDateTimePicker2";
+            wfDateTimePicker2.Size = new Size(250, 35);
+            wfDateTimePicker2.SkinColor = Color.MediumSlateBlue;
+            wfDateTimePicker2.TabIndex = 5;
+            wfDateTimePicker2.TextColor = Color.White;
             // 
             // wfDateTimePicker3
             // 
-            this.wfDateTimePicker3.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.wfDateTimePicker3.BorderSize = 0;
-            this.wfDateTimePicker3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.wfDateTimePicker3.Location = new System.Drawing.Point(70, 310);
-            this.wfDateTimePicker3.MinimumSize = new System.Drawing.Size(0, 35);
-            this.wfDateTimePicker3.Name = "wfDateTimePicker3";
-            this.wfDateTimePicker3.Size = new System.Drawing.Size(250, 35);
-            this.wfDateTimePicker3.SkinColor = System.Drawing.Color.RoyalBlue;
-            this.wfDateTimePicker3.TabIndex = 6;
-            this.wfDateTimePicker3.TextColor = System.Drawing.Color.White;
+            wfDateTimePicker3.BorderColor = Color.PaleVioletRed;
+            wfDateTimePicker3.BorderSize = 0;
+            wfDateTimePicker3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            wfDateTimePicker3.Location = new Point(70, 310);
+            wfDateTimePicker3.MinimumSize = new Size(0, 35);
+            wfDateTimePicker3.Name = "wfDateTimePicker3";
+            wfDateTimePicker3.Size = new Size(250, 35);
+            wfDateTimePicker3.SkinColor = Color.RoyalBlue;
+            wfDateTimePicker3.TabIndex = 6;
+            wfDateTimePicker3.TextColor = Color.White;
             // 
             // buttonwoc1
             // 
-            this.buttonwoc1.BackColor = System.Drawing.Color.Transparent;
-            this.buttonwoc1.BorderColor = System.Drawing.Color.Black;
-            this.buttonwoc1.BorderThickness = 6;
-            this.buttonwoc1.BorderThicknessByTwo = 3;
-            this.buttonwoc1.ButtonColor = System.Drawing.Color.RoyalBlue;
-            this.buttonwoc1.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.buttonwoc1.FlatAppearance.BorderSize = 0;
-            this.buttonwoc1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-            this.buttonwoc1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.buttonwoc1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonwoc1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.buttonwoc1.ForeColor = System.Drawing.Color.Transparent;
-            this.buttonwoc1.Location = new System.Drawing.Point(690, 108);
-            this.buttonwoc1.MinimumSize = new System.Drawing.Size(150, 50);
-            this.buttonwoc1.Name = "buttonwoc1";
-            this.buttonwoc1.OnHoverBorderColor = System.Drawing.Color.Red;
-            this.buttonwoc1.OnHoverButtonColor = System.Drawing.Color.Yellow;
-            this.buttonwoc1.OnHoverTextColor = System.Drawing.Color.Black;
-            this.buttonwoc1.Size = new System.Drawing.Size(188, 62);
-            this.buttonwoc1.TabIndex = 7;
-            this.buttonwoc1.Text = "buttonwoc1";
-            this.buttonwoc1.TextColor = System.Drawing.Color.White;
-            this.buttonwoc1.UseVisualStyleBackColor = false;
+            buttonwoc1.BackColor = Color.Transparent;
+            buttonwoc1.BorderColor = Color.Black;
+            buttonwoc1.BorderThickness = 6;
+            buttonwoc1.BorderThicknessByTwo = 3;
+            buttonwoc1.ButtonColor = Color.RoyalBlue;
+            buttonwoc1.FlatAppearance.BorderColor = Color.White;
+            buttonwoc1.FlatAppearance.BorderSize = 0;
+            buttonwoc1.FlatAppearance.MouseDownBackColor = Color.White;
+            buttonwoc1.FlatAppearance.MouseOverBackColor = Color.White;
+            buttonwoc1.FlatStyle = FlatStyle.Flat;
+            buttonwoc1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonwoc1.ForeColor = Color.Transparent;
+            buttonwoc1.Location = new Point(690, 108);
+            buttonwoc1.MinimumSize = new Size(150, 50);
+            buttonwoc1.Name = "buttonwoc1";
+            buttonwoc1.OnHoverBorderColor = Color.Red;
+            buttonwoc1.OnHoverButtonColor = Color.Yellow;
+            buttonwoc1.OnHoverTextColor = Color.Black;
+            buttonwoc1.Size = new Size(188, 62);
+            buttonwoc1.TabIndex = 7;
+            buttonwoc1.Text = "buttonwoc1";
+            buttonwoc1.TextColor = Color.White;
+            buttonwoc1.UseVisualStyleBackColor = false;
+            // 
+            // buttonwoc2
+            // 
+            buttonwoc2.BackColor = Color.Transparent;
+            buttonwoc2.BorderColor = Color.Black;
+            buttonwoc2.BorderThickness = 6;
+            buttonwoc2.BorderThicknessByTwo = 3;
+            buttonwoc2.ButtonColor = Color.RoyalBlue;
+            buttonwoc2.FlatAppearance.BorderColor = Color.White;
+            buttonwoc2.FlatAppearance.BorderSize = 0;
+            buttonwoc2.FlatAppearance.MouseDownBackColor = Color.White;
+            buttonwoc2.FlatAppearance.MouseOverBackColor = Color.White;
+            buttonwoc2.FlatStyle = FlatStyle.Flat;
+            buttonwoc2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            buttonwoc2.ForeColor = Color.Transparent;
+            buttonwoc2.Location = new Point(681, 244);
+            buttonwoc2.MinimumSize = new Size(150, 50);
+            buttonwoc2.Name = "buttonwoc2";
+            buttonwoc2.OnHoverBorderColor = Color.Red;
+            buttonwoc2.OnHoverButtonColor = Color.Yellow;
+            buttonwoc2.OnHoverTextColor = Color.Black;
+            buttonwoc2.Size = new Size(188, 62);
+            buttonwoc2.TabIndex = 8;
+            buttonwoc2.Text = "buttonwoc2";
+            buttonwoc2.TextColor = Color.White;
+            buttonwoc2.UseVisualStyleBackColor = false;
+            // 
+            // cuteRoundButton1
+            // 
+            cuteRoundButton1.BackColor = Color.White;
+            cuteRoundButton1.BorderColor = Color.White;
+            cuteRoundButton1.BorderRadius = 40;
+            cuteRoundButton1.BorderSize = 0;
+            cuteRoundButton1.FirstColor = Color.LightGreen;
+            cuteRoundButton1.FirstColorTransparency = 80;
+            cuteRoundButton1.FlatAppearance.BorderSize = 0;
+            cuteRoundButton1.FlatStyle = FlatStyle.Flat;
+            cuteRoundButton1.ForeColor = Color.Black;
+            cuteRoundButton1.Location = new Point(62, 203);
+            cuteRoundButton1.Name = "cuteRoundButton1";
+            cuteRoundButton1.SecondColor = Color.DarkBlue;
+            cuteRoundButton1.SecondColorTransparency = 80;
+            cuteRoundButton1.Size = new Size(188, 50);
+            cuteRoundButton1.TabIndex = 9;
+            cuteRoundButton1.Text = "cuteRoundButton1";
+            cuteRoundButton1.UseVisualStyleBackColor = false;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(917, 457);
-            this.Controls.Add(this.buttonwoc1);
-            this.Controls.Add(this.wfDateTimePicker3);
-            this.Controls.Add(this.wfDateTimePicker2);
-            this.Controls.Add(this.wfDateTimePicker1);
-            this.Controls.Add(this.wfTextBox1);
-            this.Controls.Add(this.thirdButton);
-            this.Controls.Add(this.secondButton);
-            this.Controls.Add(this.firstButton);
-            this.Name = "MainForm";
-            this.Text = "Test";
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(917, 457);
+            Controls.Add(cuteRoundButton1);
+            Controls.Add(buttonwoc2);
+            Controls.Add(buttonwoc1);
+            Controls.Add(wfDateTimePicker3);
+            Controls.Add(wfDateTimePicker2);
+            Controls.Add(wfDateTimePicker1);
+            Controls.Add(wfTextBox1);
+            Controls.Add(thirdButton);
+            Controls.Add(secondButton);
+            Controls.Add(firstButton);
+            Name = "MainForm";
+            Text = "Test";
+            ResumeLayout(false);
+        }
 
+        private void ConfigureClickMethod()
+        {
+            foreach (Control c in Controls)
+            {
+                if (c is Button)
+                {
+                    Button b = c as Button;
+                    b.Click += new EventHandler(Button_Click);
+                }
+            }
         }
 
         #endregion
 
-        private WindowsFormsControls.ButtonWOC firstButton;
-        private WindowsFormsControls.RoundButton secondButton;
-        private WindowsFormsControls.CuteButton thirdButton;
-        private WindowsFormsControls.WFTextBox wfTextBox1;
-        private WindowsFormsControls.WFDateTimePicker wfDateTimePicker1;
-        private WindowsFormsControls.WFDateTimePicker wfDateTimePicker2;
-        private WindowsFormsControls.WFDateTimePicker wfDateTimePicker3;
-        private WindowsFormsControls.ButtonWOC buttonwoc1;
+        private ButtonWOC firstButton;
+        private RoundButton secondButton;
+        private CuteButton thirdButton;
+        private WFTextBox wfTextBox1;
+        private WFDateTimePicker wfDateTimePicker1;
+        private WFDateTimePicker wfDateTimePicker2;
+        private WFDateTimePicker wfDateTimePicker3;
+        private ButtonWOC buttonwoc1;
+        private ButtonWOC buttonwoc2;
+        private CuteRoundButton cuteRoundButton1;
     }
 }

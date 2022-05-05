@@ -9,11 +9,17 @@ namespace WindowsFormsControls
     [DefaultEvent(nameof(SelectedIndexChanged))]
     public partial class WFComboBox : UserControl
     {
-        private Color _backColor = Color.WhiteSmoke;
-        private Color _iconColor = Color.MediumSlateBlue;
-        private Color _listBackColor = Color.FromArgb(230, 228, 245);
-        private Color _listTextColor = Color.DimGray;
-        private Color _borderColor = Color.MediumSlateBlue;
+        private static readonly Color s_backColor = Color.WhiteSmoke;
+        private static readonly Color s_iconColor = Color.MediumSlateBlue;
+        private static readonly Color s_listBackColor = Color.FromArgb(230, 228, 245);
+        private static readonly Color s_listTextColor = Color.DimGray;
+        private static readonly Color s_borderColor = Color.MediumSlateBlue;
+
+        private Color _backColor = Color.Empty;
+        private Color _iconColor = Color.Empty;
+        private Color _listBackColor = Color.Empty;
+        private Color _listTextColor = Color.Empty;
+        private Color _borderColor = Color.Empty;
         private int _borderSize = 1;
 
         public WFComboBox()

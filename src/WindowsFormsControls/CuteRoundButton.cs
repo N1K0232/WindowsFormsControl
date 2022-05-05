@@ -2,13 +2,14 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using WindowsFormsControls.Common;
 
 namespace WindowsFormsControls
 {
     /// <summary>
     /// represents a cute windows button with rounded corners
     /// </summary>
-    public partial class CuteRoundButton : RoundButton
+    public partial class CuteRoundButton : RoundButton, ICuteButtonControl, ICustomButtonControl, IButtonControl
     {
         private static readonly Color s_firstColor = Color.LightGreen;
         private static readonly Color s_secondColor = Color.DarkBlue;
@@ -121,6 +122,8 @@ namespace WindowsFormsControls
             }
         }
 
+        public override Button ActiveButton => base.ActiveButton ?? this;
+
         protected override void OnPaint(PaintEventArgs pe)
         {
             base.OnPaint(pe);
@@ -133,26 +136,12 @@ namespace WindowsFormsControls
         /// <param name="pe">the event informations</param>
         private void DrawControl(PaintEventArgs pe)
         {
-            Color firstColor = GetFirstColor();
-            Color secondColor = GetSecondColor();
+            Color firstColor = Color.FromArgb(FirstColorTransparency, GetFirstColor());
+            Color secondColor = Color.FromArgb(SecondColorTransparency, GetSecondColor());
+            Rectangle rectangle = ClientRectangle;
+            LinearGradientBrush brush = new(rectangle, firstColor, secondColor, 10);
             Graphics graphics = pe.Graphics;
             graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            Draw(graphics, firstColor, secondColor);
-        }
-
-        /// <summary>
-        /// draws the control by giving the firstColor, the second color
-        /// and the graphics of the control
-        /// </summary>
-        /// <param name="graphics">the graphics of the control</param>
-        /// <param name="firstColor">the first color</param>
-        /// <param name="secondColor">the second color</param>
-        private void Draw(Graphics graphics, Color firstColor, Color secondColor)
-        {
-            Color c1 = Color.FromArgb(_firstColorTransparency, firstColor);
-            Color c2 = Color.FromArgb(_secondColorTransparency, secondColor);
-            Rectangle rectangle = ClientRectangle;
-            LinearGradientBrush brush = new(rectangle, c1, c2, 10);
             graphics.FillRectangle(brush, rectangle);
             brush.Dispose();
         }
