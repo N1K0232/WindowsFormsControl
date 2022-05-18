@@ -26,6 +26,7 @@ namespace WindowsFormsControls
         public CuteButton()
         {
             Size = new Size(120, 50);
+            BackColor = Color.White;
             ForeColor = Color.Black;
             Font = new Font("Segoe UI", 12F);
             FlatAppearance.BorderColor = Color.White;
