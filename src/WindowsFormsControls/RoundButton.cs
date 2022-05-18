@@ -101,6 +101,8 @@ namespace WindowsFormsControls
             }
         }
 
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual Button ActiveButton => this;
 
         /// <summary>
