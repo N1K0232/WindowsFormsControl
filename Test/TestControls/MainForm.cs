@@ -5,6 +5,7 @@ namespace TestControls
         public MainForm()
         {
             InitializeComponent();
+            ConfigureClickMethod();
         }
 
         private void Button_Click(object sender, EventArgs e)

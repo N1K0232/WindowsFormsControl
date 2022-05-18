@@ -303,13 +303,10 @@ namespace WindowsFormsControls
         /// <returns>the path of the control</returns>
         private GraphicsPath GetFigurePath()
         {
-            Rectangle leftArc = GetLeftArc();
-            Rectangle rightArc = GetRightArc();
-
             GraphicsPath path = new();
             path.StartFigure();
-            path.AddArc(leftArc, 90, 180);
-            path.AddArc(rightArc, 270, 180);
+            path.AddArc(GetLeftArc(), 90, 180);
+            path.AddArc(GetRightArc(), 270, 180);
             path.CloseFigure();
 
             return path;

@@ -3,13 +3,15 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using WindowsFormsControls.Common;
 
 namespace WindowsFormsControls
 {
+
     /// <summary>
     /// represents a rounded windows button
     /// </summary>
-    public partial class ButtonWOC : Button, IButtonControl
+    public partial class ButtonWOC : Button, ICustomButtonControl, IButtonControl
     {
         //constants
         private const int DefaultBorderThickness = 6;
@@ -303,6 +305,8 @@ namespace WindowsFormsControls
                 Invalidate();
             }
         }
+
+        public Button ActiveButton => this;
 
         /// <summary>
         /// redraws the control

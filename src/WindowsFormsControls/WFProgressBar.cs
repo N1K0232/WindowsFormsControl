@@ -10,9 +10,13 @@ namespace WindowsFormsControls
     /// </summary>
     public partial class WFProgressBar : ProgressBar
     {
-        private Color _channelColor = Color.LightSteelBlue;
-        private Color _sliderColor = Color.RoyalBlue;
-        private Color _foreBackColor = Color.White;
+        private static readonly Color s_channelColor = Color.LightSteelBlue;
+        private static readonly Color s_sliderColor = Color.RoyalBlue;
+        private static readonly Color s_foreBackColor = Color.White;
+
+        private Color _channelColor = Color.Empty;
+        private Color _sliderColor = Color.Empty;
+        private Color _foreBackColor = Color.Empty;
         private int _channelHeight = 6;
         private int _sliderHeight = 6;
         private TextPosition _showValue = TextPosition.Right;
@@ -37,10 +41,22 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _channelColor;
+                Color c = _channelColor;
+
+                if (c.IsEmpty)
+                {
+                    c = s_channelColor;
+                }
+
+                return c;
             }
             set
             {
+                if (value == ChannelColor)
+                {
+                    return;
+                }
+
                 _channelColor = value;
                 Invalidate();
             }
@@ -53,10 +69,22 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _sliderColor;
+                Color c = _sliderColor;
+
+                if (c.IsEmpty)
+                {
+                    c = s_sliderColor;
+                }
+
+                return c;
             }
             set
             {
+                if (value == SliderColor)
+                {
+                    return;
+                }
+
                 _sliderColor = value;
                 Invalidate();
             }
@@ -69,10 +97,22 @@ namespace WindowsFormsControls
         {
             get
             {
-                return _foreBackColor;
+                Color c = _foreBackColor;
+
+                if (c.IsEmpty)
+                {
+                    c = s_foreBackColor;
+                }
+
+                return c;
             }
             set
             {
+                if (value == ForeBackColor)
+                {
+                    return;
+                }
+
                 _foreBackColor = value;
                 Invalidate();
             }
@@ -89,6 +129,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == ChannelHeight)
+                {
+                    return;
+                }
+
                 _channelHeight = value;
                 Invalidate();
             }
@@ -105,6 +150,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == SliderHeight)
+                {
+                    return;
+                }
+
                 _sliderHeight = value;
                 Invalidate();
             }
@@ -121,6 +171,11 @@ namespace WindowsFormsControls
             }
             set
             {
+                if (value == ShowValue)
+                {
+                    return;
+                }
+
                 _showValue = value;
                 Invalidate();
             }

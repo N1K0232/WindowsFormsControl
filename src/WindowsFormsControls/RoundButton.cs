@@ -3,13 +3,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using WindowsFormsControls.Common;
 
 namespace WindowsFormsControls
 {
     /// <summary>
     /// represents a windows button with rounded borders
     /// </summary>
-    public partial class RoundButton : Button, IButtonControl
+    public partial class RoundButton : Button, ICustomButtonControl, IButtonControl
     {
         private static readonly Color s_borderColor = Color.PaleVioletRed;
 
@@ -23,6 +24,7 @@ namespace WindowsFormsControls
         /// </summary>
         public RoundButton()
         {
+            Font = new Font("Segoe UI", 12F);
             FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderSize = 0;
             Size = new Size(150, 40);
@@ -98,6 +100,10 @@ namespace WindowsFormsControls
                 Invalidate();
             }
         }
+
+        [Browsable(false)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual Button ActiveButton => this;
 
         /// <summary>
         /// redraws the control
